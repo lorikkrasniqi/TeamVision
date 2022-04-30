@@ -1,9 +1,12 @@
-﻿namespace VisionStore.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VisionStore.Models
 {
     public class Products
     {
-
+        [Key]
         public int ProductId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

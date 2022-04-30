@@ -6,9 +6,13 @@ namespace VisionStore.Data
 {
     public class AppDbContext : DbContext
     {
-      
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<OrderedProducts>().HasKey(am => new
             {
                 am.OrderID,
@@ -24,10 +28,10 @@ namespace VisionStore.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Order> Actors { get; set; }
-        public DbSet<Products> Movies { get; set; }
-        public DbSet<OrderedProducts> Actors_Movies { get; set; }
-        public DbSet<Roles> Cinemas { get; set; }
-        public DbSet<User> Producers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Products> Products { get; set; }
+        public DbSet<OrderedProducts> OrderedProducts { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
