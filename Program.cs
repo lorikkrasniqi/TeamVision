@@ -1,15 +1,4 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using VisionStore.Areas.Identity.Data;
-using VisionStore.Data;
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("VisionStoreContextConnection");;
-
-builder.Services.AddDbContext<VisionStoreContext>(options =>
-    options.UseSqlServer(connectionString));;
-
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<VisionStoreContext>();;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -28,20 +17,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-    endpoints.MapRazorPages();
-});
 
 app.Run();
