@@ -7,20 +7,20 @@ namespace VisionStore.Models
         [Key]
         public int ProductId { get; set; }
 
-        [Display(Name = "Titulli i produktit")]
-        [Required(ErrorMessage = "Fusha titulli i produktit duhet plotesuar")]
+        [Display(Name = "Product Title : ")]
+        [Required(ErrorMessage = "This field is required")]
         public string Title { get; set; }
 
-        [Display(Name = "Pershkrimi i produktit")]
-        [Required(ErrorMessage = "Pershkrimi i produktit duhet plotesuar")]
+        [Display(Name = "Product Description : ")]
+        [Required(ErrorMessage = "This field is required")]
         public string Description { get; set; }
 
-        [Display(Name = "Cmimi")]
-        [Required(ErrorMessage = "Fusha cmimi duhet plotesuar")]
+        [Display(Name = "Price : ")]
+        [Required(ErrorMessage = "This field is required")]
         public double Price { get; set; }
 
-        [Display(Name = "Sasia")]
-        [Required(ErrorMessage = "Fusha sasia duhet plotesuar")]
+        [Display(Name = "Quantity : ")]
+        [Required(ErrorMessage = "This field is required")]
         public int Quantity { get; set; }
 
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
