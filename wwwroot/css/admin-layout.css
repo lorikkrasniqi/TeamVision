@@ -1,4 +1,12 @@
-﻿
-.admin-container table{
+﻿.admin-container table{
     height:300px;
 }
+.admin-container {
+    padding: 50px 0;
+    gap:25px;
+}
+
+.admin-container h4{
+    align-self:flex-start;
+}
+

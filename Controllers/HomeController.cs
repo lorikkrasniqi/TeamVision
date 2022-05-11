@@ -25,29 +25,22 @@ namespace VisionStore.Controllers
             return View();
         }
 
-        public IActionResult Product()
+        public IActionResult CreateProduct()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Product(Products model)
+        public IActionResult CreateProduct(Products obj)
         {
-            var record = new Products()
-            {
-                Title = model.Title,
-                Description = model.Description,
-                Quantity = model.Quantity,
-                Price = model.Price
-            };
-            _DbContext.Products.Add(record);
+            _DbContext.Products.Add(obj);
             _DbContext.SaveChanges();
-            return RedirectToAction("Product");
+            return RedirectToAction("CreateProduct");
         }
 
-        public IActionResult ListProducts()
+        public IActionResult ReadProduct()
         {
-            var list = _DbContext.Products.ToList();
+            var list = _DbContext.Products;
             return View(list);
         }
 
@@ -56,7 +49,7 @@ namespace VisionStore.Controllers
             var product = _DbContext.Products.Where(c => c.ProductId == id).FirstOrDefault();
             _DbContext.Products.Remove(product);
             _DbContext.SaveChanges();
-            return RedirectToAction("ListProducts");
+            return RedirectToAction("ReadProduct");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

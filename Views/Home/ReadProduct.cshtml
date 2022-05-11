@@ -1,0 +1,49 @@
+﻿@model IEnumerable<VisionStore.Models.Products>
+
+@{
+    ViewData["Title"] = "ListProducts";
+}
+
+
+<div class="d-flex flex-column justify-content-center align-items-center admin-container">
+    <div class="col-8">
+        <h4><strong>List of Products</strong></h4>
+        <hr />
+    </div>
+    <table class="col-8 table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr scope="row">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteProduct", new {  id=item.ProductId }, new {  @class =  "btn btn-secondary" })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
