@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VisionStore.Areas.Identity.Data;
 using VisionStore.Models;
 
 
 namespace VisionStore.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -24,6 +27,7 @@ namespace VisionStore.Data
             modelBuilder.Entity<OrderedProducts>().HasOne(a => a.Products).WithMany(am => am.OrderedProducts)
                 .HasForeignKey(a => a.ProductID);
 
+            modelBuilder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -33,5 +37,12 @@ namespace VisionStore.Data
         public DbSet<OrderedProducts> OrderedProducts { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+    }
+}
+public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
+{
+    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    {
+        builder.Property(u => u.FullName).HasMaxLength(500);
     }
 }
