@@ -1,15 +1,8 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+  
 }
-
-<h1>@ViewData["Title"]</h1>
-
-
-           
-         
-
 
 
 
@@ -18,8 +11,7 @@
 <link rel="stylesheet" href="~/css/register.css">
 
 
-<h4>UserAccount</h4>
-<hr />
+
 
 
 <div class="signup-form">
@@ -34,22 +26,9 @@
 						<span class="fa fa-user"></span>
 					</span>                    
 				</div>
-				
-
-                
-
-   
-     
-         
             <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="Email Address" required="required" />
             </div>
-
-
-
-
-
-
 			</div>
         </div>
         <div class="form-group">
@@ -59,15 +38,10 @@
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-
-
-
                  <div class="form-floating">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" required="required" placeholder="Password"/>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-
-
 			</div>
         </div>
         <div class="form-group">
@@ -83,15 +57,8 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" required="required" placeholder="Confirm Password"  />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-
-
-
-
-
 			</div>
-        </div>
-		
-        
+        </div>   
 		<div class="form-group">
                 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
