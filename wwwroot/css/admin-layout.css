@@ -1,12 +1,19 @@
-﻿.admin-container table{
-    height:300px;
-}
-.admin-container {
+﻿.admin-container{
     padding: 50px 0;
-    gap:25px;
+}
+.admin-container h3{
+    text-align:center;
+    margin:25px 0;
+}
+.admin-container form {
+    padding:25px;
+    border-bottom: 3px solid orange;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.admin-container table {
+    padding:25px;
+    border-bottom: 3px solid orange;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.admin-container h4{
-    align-self:flex-start;
-}
 
