@@ -43,6 +43,6 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Appli
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.Property(u => u.FullName).HasMaxLength(500);
+        
     }
 }

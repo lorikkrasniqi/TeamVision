@@ -10,7 +10,6 @@ namespace VisionStore.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
-    [Display(Name ="test display")]
-    public string FullName { get; set; }
+   
 }
 
