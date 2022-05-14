@@ -7,9 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]VisionStore</title>
    
+   
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Css Styles -->
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -37,7 +42,15 @@
      
      
        <!-- Js Plugins -->
- 
+ <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Authentication System</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+					//partial layout for logged in user.
+                    <partial name="_LoginPartial" ></partial>
+                </div>
+            </div>
+        </nav>
      
 </head>
 <body>
@@ -56,3 +69,6 @@
     <script src="~/js/main.js"></script>
 </body>
 </html>
+
+
+
