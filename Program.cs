@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using VisionStore.Data;
+using VisionStore.Services;
+using VisionStore.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+builder.Services.AddScoped<IProductsService, ProductsService>();
 
 var app = builder.Build();
 

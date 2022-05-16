@@ -1,0 +1,57 @@
+﻿@model IEnumerable<VisionStore.Models.Products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="admin-container  row flex-column align-items-center justify-content-center">
+    <h3>List of all Items</h3>
+    <table class="col-8 table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Title
+                </th>
+                <th scope="col">
+                    Description
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col">
+                    Quantity
+                </th>
+                <th class="col-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td class="align-middle">
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.ProductId  }, new {  @class =  "btn btn-primary" }) 
+                    @Html.ActionLink("Details", "Details", new {  id=item.ProductId  }, new {  @class =  "btn btn-secondary" }) 
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ProductId}, new {  @class =  "btn btn-danger" })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
