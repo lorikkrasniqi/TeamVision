@@ -11,7 +11,7 @@ namespace VisionStore.Models
         public string City { get; set; }
         public int UserID { get; set; }
         [ForeignKey("UserID")]
-        public User Users { get; set; }
+       
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
 
     }

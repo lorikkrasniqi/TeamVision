@@ -4,24 +4,26 @@
     @RenderSection("scripts", required: false)
 
 
-
      <header class="header-section">
   <div class="header-top">
       <div class="container">
           <div class="ht-left">
-              <div class="mail-service">
-                  <i class=" fa fa-envelope"></i>
-                 visionstore@gmail.com
-              </div>
-              <div class="phone-service">
-                  <i class=" fa fa-phone"></i>
-                  +00 00.000.000
+              <div class="mail-service"> 
+                   <i class=" fa fa-envelope"></i>
+                  @using Microsoft.AspNetCore.Identity
+                  @using VisionStore.Areas.Identity.Data
+                  @inject SignInManager<ApplicationUser> SignInManager
+                  @inject UserManager<ApplicationUser> UserManager
+
+                 @if (SignInManager.IsSignedIn(User)){
+                   <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+               
+                    } 
               </div>
           </div>
-          <div class="ht-right">
-              <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
-              <div class="lan-selector">
-                  <select class="language_drop" name="countries" id="countries" style="width:300px">
+          <div class="ht-right">               
+                   <div class="lan-selector">
+                    <select class="language_drop" name="countries" id="countries" style="width:300px">
                       <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
                           data-title="English">English</option>
                       <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
@@ -33,6 +35,9 @@
                   <a href="#"><i class="ti-twitter-alt"></i></a>
                   <a href="#"><i class="ti-linkedin"></i></a>
                   <a href="#"><i class="ti-pinterest"></i></a>
+                  <a href="#"><partial name="_LoginPartial"/>  </a>
+
+                  
               </div>
           </div>
       </div>
@@ -152,21 +157,9 @@
                           <li><a href="#">Blog Details</a></li>
                           <li><a href="#">Shopping Cart</a></li>
                           <li><a href="#">Checkout</a></li>
-                          <li><a href="#">Faq</a></li>
-                          <li><a href="#">Register</a></li>
-                          <li><a href="#">Login</a></li>
-                         
+                          <li><a href="#">Faq</a></li>                         
                       </ul>
                   </li>
-
-                   <li><a href="#">Sign In</a>
-                      <ul class="dropdown">
-                          <li><partial name="_LoginPartial"/> </li>
-                         
-                         
-                      </ul>
-                  </li>
-                  
               </ul>
              
           </nav>
