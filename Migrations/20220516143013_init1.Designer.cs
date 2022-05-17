@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VisionStore.Data;
 
@@ -11,9 +12,10 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220516143013_init1")]
+    partial class init1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,6 +255,8 @@ namespace VisionStore.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("UserID");
+
                     b.ToTable("Orders");
                 });
 
@@ -262,9 +266,6 @@ namespace VisionStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID", "ProductID");
@@ -299,6 +300,56 @@ namespace VisionStore.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.Roles", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"), 1L, 1);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+
+                    b.Property<DateTime>("Birthdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID");
+
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -352,6 +403,17 @@ namespace VisionStore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("VisionStore.Models.Order", b =>
+                {
+                    b.HasOne("VisionStore.Models.User", "Users")
+                        .WithMany("orders")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("VisionStore.Models.OrderedProducts", b =>
                 {
                     b.HasOne("VisionStore.Models.Order", "Orders")
@@ -371,6 +433,17 @@ namespace VisionStore.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("VisionStore.Models.User", b =>
+                {
+                    b.HasOne("VisionStore.Models.Roles", "Roles")
+                        .WithMany("users")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
+                });
+
             modelBuilder.Entity("VisionStore.Models.Order", b =>
                 {
                     b.Navigation("OrderedProducts");
@@ -379,6 +452,16 @@ namespace VisionStore.Migrations
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Navigation("OrderedProducts");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.Roles", b =>
+                {
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.User", b =>
+                {
+                    b.Navigation("orders");
                 });
 #pragma warning restore 612, 618
         }

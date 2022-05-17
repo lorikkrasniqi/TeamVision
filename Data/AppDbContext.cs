@@ -35,14 +35,13 @@ namespace VisionStore.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<OrderedProducts> OrderedProducts { get; set; }
-        public DbSet<Roles> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
+    
     }
 }
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.Property(u => u.FullName).HasMaxLength(500);
+        
     }
 }
