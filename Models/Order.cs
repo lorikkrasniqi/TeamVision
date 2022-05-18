@@ -9,9 +9,6 @@ namespace VisionStore.Models
         public int OrderId { get; set; } 
         public string Address { get; set; }
         public string City { get; set; }
-        public int UserID { get; set; }
-        [ForeignKey("UserID")]
-       
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
 
     }
