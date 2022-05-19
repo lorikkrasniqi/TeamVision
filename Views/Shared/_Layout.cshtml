@@ -17,7 +17,7 @@
 
                  @if (SignInManager.IsSignedIn(User)){
                    <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-               
+                   <a asp-action="UserData" asp-controller="user">Your Data</a>
                     } 
               </div>
           </div>
@@ -35,7 +35,7 @@
                   <a href="#"><i class="ti-twitter-alt"></i></a>
                   <a href="#"><i class="ti-linkedin"></i></a>
                   <a href="#"><i class="ti-pinterest"></i></a>
-                  <a href="#"><partial name="_LoginPartial"/>  </a>
+                 <a href="#"><partial name="_LoginPartial"/>  </a>
 
                   
               </div>
