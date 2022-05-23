@@ -11,7 +11,9 @@
     .form-control, .form-control:focus, .input-group-text {
         border-color: #e1e1e1;
     }
-
+.buton {
+    background-color: #000000;
+}
 .form-control, .btn {
     border-radius: 3px;
 }
@@ -63,13 +65,13 @@
     .signup-form .btn, .signup-form .btn:active {
         font-size: 16px;
         font-weight: bold;
-        background: #19aa8d !important;
+        background: #000000 !important;
         border: none;
         min-width: 140px;
     }
 
         .signup-form .btn:hover, .signup-form .btn:focus {
-            background: #179b81 !important;
+            background: #000000;
         }
 
     .signup-form a {

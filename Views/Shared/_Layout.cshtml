@@ -67,6 +67,27 @@
                             {
                                 <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
 
+                                  <a asp-action="UserData" class="text-dark" asp-controller="user">| Profile</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="ht-right">
+                        <div class="lan-selector">
+                            <select class="language_drop" name="countries" id="countries" style="width:300px">
+                                <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
+                                        data-title="English">English</option>
+                                <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
+                                        data-title="Bangladesh">German </option>
+                            </select>
+                        </div>
+                        <div class="top-social">
+                            <a href="#"><i class="ti-facebook"></i></a>
+                            <a href="#"><i class="ti-twitter-alt"></i></a>
+                            <a href="#"><i class="ti-linkedin"></i></a>
+                            <a href="#"><i class="ti-pinterest"></i></a>
+                            <a href="#"><partial name="_LoginPartial" />  </a>
+
+
                             }
                         </div>
                     </div>
