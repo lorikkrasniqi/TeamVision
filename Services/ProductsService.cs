@@ -38,9 +38,10 @@ namespace VisionStore.Services
             var product = _context.Products.Where(c => c.ProductId == id).FirstOrDefault();
             return product;
         }
-        public void Update(Products product)
+        public async Task Update(Products product)
         {
-
+            var record = _context.Products.Where(c => c.ProductId == product.ProductId).FirstOrDefault();
+            await _context.SaveChangesAsync();
         }
     }
 }
