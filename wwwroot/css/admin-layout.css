@@ -1,0 +1,24 @@
+﻿﻿.admin-container {
+    padding: 50px 0;
+}
+.admin-container h3 {
+    text-align: center;
+    margin: 25px 0;
+}
+.admin-container form, dl {
+    padding: 25px;
+    border-bottom: 3px solid orange;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.admin-container table {
+    padding: 25px;
+    border-bottom: 3px solid orange;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+/* Bottom links container in details view */
+.admin-container .bottom{
+    gap : 20px;
+    padding:0 5% 50px 0;
+}

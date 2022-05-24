@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VisionStore.Data;
+using VisionStore.Services;
+using VisionStore.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using VisionStore.Services;
 using VisionStore.Areas.Identity.Data;
@@ -20,6 +22,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 builder.Services.AddScoped<ICategoryService,CategoryServices>();
+builder.Services.AddScoped<IProductsService, ProductsService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
