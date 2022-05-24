@@ -12,14 +12,14 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220514105358_init")]
-    partial class init
+    [Migration("20220518071506_AddedCategory")]
+    partial class AddedCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -180,6 +180,14 @@ namespace VisionStore.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -226,6 +234,27 @@ namespace VisionStore.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("VisionStore.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("VisionStore.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -242,12 +271,7 @@ namespace VisionStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderId");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Orders");
                 });
@@ -275,6 +299,9 @@ namespace VisionStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -291,57 +318,9 @@ namespace VisionStore.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("VisionStore.Models.Roles", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"), 1L, 1);
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("VisionStore.Models.User", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
-
-                    b.Property<DateTime>("Birthdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserID");
-
-                    b.HasIndex("RoleID");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -395,17 +374,6 @@ namespace VisionStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VisionStore.Models.Order", b =>
-                {
-                    b.HasOne("VisionStore.Models.User", "Users")
-                        .WithMany("orders")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("VisionStore.Models.OrderedProducts", b =>
                 {
                     b.HasOne("VisionStore.Models.Order", "Orders")
@@ -425,15 +393,20 @@ namespace VisionStore.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("VisionStore.Models.User", b =>
+            modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
-                    b.HasOne("VisionStore.Models.Roles", "Roles")
-                        .WithMany("users")
-                        .HasForeignKey("RoleID")
+                    b.HasOne("VisionStore.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Roles");
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("VisionStore.Models.Order", b =>
@@ -444,16 +417,6 @@ namespace VisionStore.Migrations
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Navigation("OrderedProducts");
-                });
-
-            modelBuilder.Entity("VisionStore.Models.Roles", b =>
-                {
-                    b.Navigation("users");
-                });
-
-            modelBuilder.Entity("VisionStore.Models.User", b =>
-                {
-                    b.Navigation("orders");
                 });
 #pragma warning restore 612, 618
         }
