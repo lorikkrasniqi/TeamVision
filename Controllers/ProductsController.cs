@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VisionStore.Data;
 using VisionStore.Models;
 using VisionStore.Services.IServices;
@@ -8,25 +9,31 @@ namespace VisionStore.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductsService _service;
+        private readonly ICategoryService _category;
 
-        public ProductsController(IProductsService service)
+        public ProductsController(IProductsService service, ICategoryService category)
         {
             _service = service;
+            _category = category;
         }
         public IActionResult Index()
         {
             var list = _service.GetAll();
             return View(list);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+
+            var category = await _category.GetAll();
+
+            ViewData["CategoryId"] = new SelectList(category, "CategoryId", "Name"); 
             return View();
         }
         [HttpPost]
         public IActionResult Add(Products product)
         {
             _service.Add(product);  
-            return RedirectToAction("Add");
+            return RedirectToAction("Index");
         }
         public IActionResult Details(int id)
         {

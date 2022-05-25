@@ -32,6 +32,7 @@ namespace VisionStore.Data
             base.OnModelCreating(modelBuilder);
         }
 
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
