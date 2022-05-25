@@ -26,13 +26,13 @@ namespace VisionStore.Controllers
 
             var category = await _category.GetAll();
 
-            ViewData["CategoryId"] = new SelectList(category, "CategoryId", "Name"); 
+            ViewData["CategoryId"] = new SelectList(category, "CategoryId", "Name");
             return View();
         }
         [HttpPost]
         public IActionResult Add(Products product)
         {
-            _service.Add(product);  
+            _service.Add(product);
             return RedirectToAction("Index");
         }
         public IActionResult Details(int id)
