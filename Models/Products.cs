@@ -16,7 +16,7 @@ namespace VisionStore.Models
         public int Quantity { get; set; }
 
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
-
+     
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }  

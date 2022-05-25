@@ -15,6 +15,7 @@ namespace VisionStore.Services
         {
             _context.Products.Add(product);
             _context.SaveChanges();
+
         }
 
         public void Delete(int id)
