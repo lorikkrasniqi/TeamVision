@@ -8,6 +8,7 @@
         <form asp-action="Edit">
             <h3>Edit item in inventory</h3>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <input type="hidden" asp-for="ProductId" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />

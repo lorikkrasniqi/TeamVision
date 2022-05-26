@@ -12,39 +12,36 @@ namespace VisionStore.Services
         {
             _context = context;
         }
-        public void Create(Category category)
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            var result = await _context.Categories.ToListAsync();
+            return result;
         }
 
-        public void Delete(int id)
+        public async Task CreateAsync(Category categories)
         {
-            var record = _context.Categories.Where(c => c.CategoryId == id).FirstOrDefault();
-            if (record != null)
-            {
-                _context.Categories.Remove(record);
-                _context.SaveChanges();
-            }
+            await _context.Categories.AddAsync(categories);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task DeleteAsync(int id)
         {
-            var list = await _context.Categories.ToListAsync();
-            return list;
+            var result = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            _context.Categories.Remove(result);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<Category> GetByIdAsync(int id)
+        {
+            var result = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            return result;
         }
 
-        public Category GetById(int id)
+        public async Task<Category> UpdateAsync(int id, Category categories)
         {
-            var Categories = _context.Categories.Where(c => c.CategoryId == id).FirstOrDefault();
-            return Categories;
-        }
+            _context.Update(categories);
+            await _context.SaveChangesAsync();
+            return categories;
 
-        void ICategoryService.Update(Category category)
-        {
-            
-            _context.Update(category);
-            _context.SaveChanges();
         }
     }
 }

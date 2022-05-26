@@ -1,4 +1,5 @@
-﻿using VisionStore.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VisionStore.Data;
 using VisionStore.Models;
 using VisionStore.Services.IServices;
 
@@ -11,38 +12,36 @@ namespace VisionStore.Services
         {
             _context = context;
         }
-        public void Add(Products product)
+        public async Task<IEnumerable<Products>> GetAllAsync()
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
-
+            var result = await _context.Products.ToListAsync();
+            return result;
         }
 
-        public void Delete(int id)
+        public async Task AddAsync(Products product)
         {
-            var record = _context.Products.Where(c => c.ProductId == id).FirstOrDefault();
-            if(record != null)
-            {
-                _context.Products.Remove(record);
-                _context.SaveChanges();
-            }
+           await _context.Products.AddAsync(product);
+           await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Products> GetAll()
+        public async Task DeleteAsync(int id)
         {
-            var list = _context.Products;
-            return list;
-        }
-
-        public Products GetById(int id)
-        {
-            var product = _context.Products.Where(c => c.ProductId == id).FirstOrDefault();
-            return product;
-        }
-        public async Task Update(Products product)
-        {
-            var record = _context.Products.Where(c => c.ProductId == product.ProductId).FirstOrDefault();
+            var result  = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);  
+             _context.Products.Remove(result);
             await _context.SaveChangesAsync();
+        }
+        public async Task<Products> GetByIdAsync(int id)
+        {
+          var result = await _context.Products.FirstOrDefaultAsync(x => x.ProductId  == id); 
+            return result;
+        }
+
+        public async Task<Products>UpdateAsync(int id, Products product)
+        {
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+            return product;
+
         }
     }
 }
