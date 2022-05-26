@@ -70,8 +70,6 @@
                             }
                         </div>
                     </div>
-
-
                     <div class="ht-right">
                         <div class="lan-selector">
                             <select class="language_drop" name="countries" id="countries" style="width:300px">
@@ -95,46 +93,22 @@
             </div>
             <div class="nav-item">
                 <div class="container">
-                   @* <div class="nav-depart">
-                        <div class="depart-btn">
-                            <i class="ti-menu"></i>
-                            <span>All departments</span>
-                            <ul class="depart-hover">
-                                <li class="active"><a href="#">Women’s Clothing</a></li>
-                                <li><a href="#">Men’s Clothing</a></li>
-                                <li><a href="#">Underwear</a></li>
-                                <li><a href="#">Kid's Clothing</a></li>
-                                <li><a href="#">Brand Fashion</a></li>
-                                <li><a href="#">Accessories/Shoes</a></li>
-                                <li><a href="#">Luxury Brands</a></li>
-                                <li><a href="#">Brand Outdoor Apparel</a></li>
-                            </ul>
-                        </div>
-                    </div>*@
                     <nav class="nav-menu mobile-menu">
                         <ul>
-                            
-                            <li class="active"><a asp-controller = "Home", asp-action ="Index">Home</a></li>
-                            <li><a href="#">Shop</a></li>
-
+                            <li class=""><a asp-controller="Home" , asp-action="Index">Home</a></li>
                             <li>
-                                <a href="#">Collection</a>
+                                <a asp-controller="Products" , asp-action="Index">Products</a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Men's</a></li>
-                                    <li><a href="#">Women's</a></li>
-                                    <li><a href="#">Kid's</a></li>
+                                    <li><a asp-controller="Products" , asp-action="Add">Add products</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a asp-controller="Categories" , asp-action="Index">Categories</a>
+                                <ul class="dropdown">
+                                    <li><a asp-controller="Categories" , asp-action="Create">Add products</a></li>
                                 </ul>
                             </li>
 
-                            <li>
-                                <a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Blog Details</a></li>
-                                    <li><a href="#">Shopping Cart</a></li>
-                                    <li><a href="#">Checkout</a></li>
-                                    <li><a href="#">Faq</a></li>
-                                </ul>
-                            </li>
                         </ul>
 
                     </nav>
