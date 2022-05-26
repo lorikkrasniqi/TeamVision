@@ -25,17 +25,17 @@ namespace VisionStore.Controllers
             return View(list);
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([Bind("Name", "Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Name", "Description")] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(category);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(category);
+            //}
             await _category.CreateAsync(category);
             return RedirectToAction("Index");
 
@@ -60,10 +60,10 @@ namespace VisionStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId", "Name", "Description")] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(category);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(category);
+            //}
             await _category.UpdateAsync(id, category);
             return RedirectToAction("Index");
 
