@@ -23,20 +23,20 @@ namespace VisionStore.Controllers
             return View(list);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
 
-            //var category = await _category.GetAll();
-            //ViewData["CategoryID"] =new SelectList(category, "CategoryId", "Name");
+            var category = await _category.GetAllAsync();
+            ViewData["CategoryID"] = new SelectList(category, "CategoryId", "Name");
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([Bind("Title","Description","Price","Quantity")]Products product)
+        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity")]Products product)
         {
-            if(!ModelState.IsValid)
-            {
-              return View(product); 
-            }
+            //if(!ModelState.IsValid)
+            //{
+            //  return View(product); 
+            //}
                 await _service.AddAsync(product);  
                 return RedirectToAction("Index");
            
@@ -51,6 +51,9 @@ namespace VisionStore.Controllers
         }
         public async Task <IActionResult> Edit(int id)
         {
+            var category = await _category.GetAllAsync();
+            ViewData["CategoryID"] = new SelectList(category, "CategoryId", "Name");
+
             var product = await _service.GetByIdAsync(id);
             if (product == null)
             { return View("NotFound"); }
@@ -59,7 +62,7 @@ namespace VisionStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id,[Bind("ProductId", "Title", "Description", "Price", "Quantity")] Products product)
+        public async Task<IActionResult> Edit(int id,[Bind("CategoryId","ProductId", "Title", "Description", "Price", "Quantity")] Products product)
         {
             //if (!ModelState.IsValid)
             //{
