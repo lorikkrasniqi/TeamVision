@@ -60,18 +60,19 @@
             <div class="header-top">
                 <div class="container">
                     <div class="ht-left">
-                        <div class="mail-service">
-                            <i class=" fa fa-envelope"></i>
+                        
+            
                             @if (SignInManager.IsSignedIn(User))
                             {
+                                <div class="mail-service">
+                                    <i class=" fa fa-envelope"></i>
                                 <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
 
                                 <a asp-action="UserData" class="text-dark" asp-controller="user">| Profile</a>
+                                </div>
                             }
-                        </div>
-                    </div>
-
-
+                     </div>  
+                   
                     <div class="ht-right">
                         <div class="lan-selector">
                             <select class="language_drop" name="countries" id="countries" style="width:300px">
@@ -82,11 +83,10 @@
                             </select>
                         </div>
                         <div class="top-social">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-linkedin"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                            <a href="#"><partial name="_LoginPartial" />  </a>
+                            <a href="https://www.facebook.com/starlabs.dev" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/starlabs.dev/" target="_blank"><i class="fa fa-instagram"></i></a>
+                            <a href="https://twitter.com/StarLabsDev" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><partial name="_LoginPartial"/></a>
 
 
                         </div>
@@ -95,46 +95,22 @@
             </div>
             <div class="nav-item">
                 <div class="container">
-                   @* <div class="nav-depart">
-                        <div class="depart-btn">
-                            <i class="ti-menu"></i>
-                            <span>All departments</span>
-                            <ul class="depart-hover">
-                                <li class="active"><a href="#">Women’s Clothing</a></li>
-                                <li><a href="#">Men’s Clothing</a></li>
-                                <li><a href="#">Underwear</a></li>
-                                <li><a href="#">Kid's Clothing</a></li>
-                                <li><a href="#">Brand Fashion</a></li>
-                                <li><a href="#">Accessories/Shoes</a></li>
-                                <li><a href="#">Luxury Brands</a></li>
-                                <li><a href="#">Brand Outdoor Apparel</a></li>
-                            </ul>
-                        </div>
-                    </div>*@
                     <nav class="nav-menu mobile-menu">
                         <ul>
-                            
-                            <li class="active"><a asp-controller = "Home", asp-action ="Index">Home</a></li>
-                            <li><a href="#">Shop</a></li>
-
+                            <li class=""><a asp-controller="Home" , asp-action="Index">Home</a></li>
                             <li>
-                                <a href="#">Collection</a>
+                                <a asp-controller="Products" , asp-action="Index">Products</a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Men's</a></li>
-                                    <li><a href="#">Women's</a></li>
-                                    <li><a href="#">Kid's</a></li>
+                                    <li><a asp-controller="Products" , asp-action="Add">Add products</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a asp-controller="Categories" , asp-action="Index">Categories</a>
+                                <ul class="dropdown">
+                                    <li><a asp-controller="Categories" , asp-action="Create">Add products</a></li>
                                 </ul>
                             </li>
 
-                            <li>
-                                <a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Blog Details</a></li>
-                                    <li><a href="#">Shopping Cart</a></li>
-                                    <li><a href="#">Checkout</a></li>
-                                    <li><a href="#">Faq</a></li>
-                                </ul>
-                            </li>
                         </ul>
 
                     </nav>
@@ -154,18 +130,18 @@
             <div class="col-lg-3">
                 <div class="footer-left">
                     <div class="footer-logo">
-                        <a href="#">Jassa</a>
+                        <a href="#">StarLabs</a>
                     </div>
                     <ul>
-                        <li>Address: 11-11 Road 11 22 22</li>
+                        <li>Address: Ukshin Hoti Pristina, Kosovo</li>
                         <li>Phone: +00 00.000.000</li>
-                        <li>Email: therichposts@gmail.com</li>
+                        <li>Email: info@starlabspro.com</li>
+                        <li>Website : http://www.starlabs.dev/</li>
                     </ul>
                     <div class="footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="https://www.facebook.com/starlabs.dev" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/starlabs.dev/" target="_blank"><i class="fa fa-instagram"></i></a>
+                        <a href="https://twitter.com/StarLabsDev" target="_blank"><i class="fa fa-twitter"></i></a>
                     </div>
                 </div>
             </div>
@@ -209,7 +185,7 @@
                 <div class="col-lg-12">
                     <div class="copyright-text">
 
-                        Copyright &copy;2021 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://therichpost.com" target="_blank">Jassa</a>
+                        Copyright &copy;2022 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://starlabs.dev" target="_blank">VisionStore</a>
                     </div>
                     <div class="payment-pic">
                         <img src="img/payment-method.png" alt="" />
