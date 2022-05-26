@@ -31,7 +31,7 @@ namespace VisionStore.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity")]Products product)
+        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity","productImage")]Products product)
         {
             //if(!ModelState.IsValid)
             //{

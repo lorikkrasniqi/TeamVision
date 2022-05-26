@@ -26,10 +26,10 @@ namespace VisionStore.Services
         {
             string uniqueFileName = UploadedFile(product);
             product.ImageUrl = uniqueFileName;
-           _context.Attach(product);
-           _context.Entry(product).State = EntityState.Added;
-           await   _context.Products.AddAsync(product);
-           await _context.SaveChangesAsync();
+            _context.Attach(product);
+            _context.Entry(product).State = EntityState.Added;
+             await _context.Products.AddAsync(product);
+             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)

@@ -35,8 +35,8 @@
                 </div>
             </div>
              <div class="form-group col">
-                       <label asp-for="productImage" class="control-label"></label>
-                    <input asp-for="productImage"  id="prdImg" onchange="document.getElementById('productImg').src = window.URL.createObjectURL(this.files[0])" />
+                    <label asp-for="productImage" class="control-label"></label>
+                    <input asp-for="productImage"  id="prdImg" class ="form-control" onchange="document.getElementById('productImg').src = window.URL.createObjectURL(this.files[0])"/>
                     <span asp-validation-for="productImage" class="text-danger"></span>
                     <img id="productImg" src="" alt="Product Image" width="150" height="150" style="border:1px;margin-top:20px;margin-left:20px;"/>
                 </div>
@@ -53,8 +53,8 @@
 
 <script type="text/javascript">
  $(".custom-file-input").on("change", function () {
-     var fileName = $(this).val().split("\\").pop();
-     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+     var fileName = $(productImage).val().split("\\").pop();
+     $(productImage).siblings(".custom-file-label").addClass("selected").html(fileName);
  });
     
 </script>
