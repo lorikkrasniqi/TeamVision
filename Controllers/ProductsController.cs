@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using VisionStore.Data;
 using VisionStore.Models;
 using VisionStore.Services.IServices;
+using System.Collections;
 
 namespace VisionStore.Controllers
 {
@@ -16,46 +17,77 @@ namespace VisionStore.Controllers
             _service = service;
             _category = category;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _service.GetAll();
+            var list = await _service.GetAllAsync();
             return View(list);
         }
+
         public async Task<IActionResult> Add()
         {
 
-            var category = await _category.GetAll();
-
-            ViewData["CategoryId"] = new SelectList(category, "CategoryId", "Name"); 
+            var category = await _category.GetAllAsync();
+            ViewData["CategoryID"] = new SelectList(category, "CategoryId", "Name");
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Products product)
+        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity")]Products product)
         {
-            _service.Add(product);  
-            return RedirectToAction("Index");
+            //if(!ModelState.IsValid)
+            //{
+            //  return View(product); 
+            //}
+                await _service.AddAsync(product);  
+                return RedirectToAction("Index");
+           
         }
-        public IActionResult Details(int id)
+        public async Task <IActionResult> Details(int id)
         {
-            var product = _service.GetById(id);
+            var product = await _service.GetByIdAsync(id);
+            if (product == null)
+            { return View("NotFound"); }
+
             return View(product);
         }
-        public IActionResult Edit(int id)
+        public async Task <IActionResult> Edit(int id)
         {
-            var product = _service.GetById(id);
+            var category = await _category.GetAllAsync();
+            ViewData["CategoryID"] = new SelectList(category, "CategoryId", "Name");
+
+            var product = await _service.GetByIdAsync(id);
+            if (product == null)
+            { return View("NotFound"); }
+
             return View(product);
         }
 
         [HttpPost]
-        public IActionResult Edit(Products product)
+        public async Task<IActionResult> Edit(int id,[Bind("CategoryId","ProductId", "Title", "Description", "Price", "Quantity")] Products product)
         {
-            _service.Update(product);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(product);
+            //}
+            await _service.UpdateAsync(id,product);
             return RedirectToAction("Index");
+
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _service.Delete(id);
+            var product = await _service.GetByIdAsync(id);
+            if (product == null) { return View("NotFound"); }           
+            
+            return View(product);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult>DeleteConfirmed(int id)
+        {
+            var product = await _service.GetByIdAsync(id);
+            if (product == null) { return View("NotFound"); }
+
+            await _service.DeleteAsync(id);  
             return RedirectToAction("Index");
+
         }
     }
 }

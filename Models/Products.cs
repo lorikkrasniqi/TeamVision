@@ -6,17 +6,20 @@ namespace VisionStore.Models
     public class Products
     {
         [Key]
+        
         public int ProductId { get; set; }
-
+        [Required(ErrorMessage ="You need to provide product's title")]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "You need to provide product's Description")]
         public string Description { get; set; }
+        [Required(ErrorMessage = "You need to provide product's Price")]
         public double Price { get; set; }
-
+        [Required(ErrorMessage = "You need to provide product's Quantity")]
         public int Quantity { get; set; }
 
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
-     
+
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }  

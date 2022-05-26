@@ -4,10 +4,10 @@ namespace VisionStore.Services.IServices
 {
     public interface IProductsService
     {
-        IEnumerable<Products> GetAll();
-        Products GetById(int id);   
-        void Add(Products product);
-        Task Update(Products product);
-        void Delete(int id);
+        Task<IEnumerable<Products>> GetAllAsync();
+        Task<Products> GetByIdAsync(int id);   
+        Task AddAsync(Products product);
+        Task<Products> UpdateAsync(int id,Products product);
+        Task DeleteAsync(int id);
     }
 }

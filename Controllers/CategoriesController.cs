@@ -14,47 +14,76 @@ namespace VisionStore.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _category;
+
         public CategoriesController(ICategoryService category)
         {
             _category = category;
         }
         public async Task<IActionResult> Index()
         {
-
-            var data = await _category.GetAll();
-            return View(data);
+            var list = await _category.GetAllAsync();
+            return View(list);
         }
+
         public IActionResult Create()
         {
-            return View("Create");
+            return View();
         }
         [HttpPost]
-        public IActionResult Create(Category category)
+        public async Task<IActionResult> Create([Bind("Name", "Description")] Category category)
         {
-            _category.Create(category);  
-            return RedirectToAction("Create");
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(category);
+            //}
+            await _category.CreateAsync(category);
+            return RedirectToAction("Index");
+
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var category = _category.GetById(id);
-            return View(category);
+            var product = await _category.GetByIdAsync(id);
+            if (product == null)
+            { return View("NotFound"); }
+
+            return View(product);
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var category = _category.GetById(id);
-            return View(category);
+            var product = await _category.GetByIdAsync(id);
+            if (product == null)
+            { return View("NotFound"); }
+
+            return View(product);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId", "Name", "Description")] Category category)
         {
-            _category.Update(category);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(category);
+            //}
+            await _category.UpdateAsync(id, category);
             return RedirectToAction("Index");
+
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _category.Delete(id);
+            var product = await _category.GetByIdAsync(id);
+            if (product == null) { return View("NotFound"); }
+
+            return View(product);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var product = await _category.GetByIdAsync(id);
+            if (product == null) { return View("NotFound"); }
+
+            await _category.DeleteAsync(id);
             return RedirectToAction("Index");
+
         }
     }
 }
