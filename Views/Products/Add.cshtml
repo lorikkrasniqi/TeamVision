@@ -5,7 +5,7 @@
 }
 <div class="admin-container row justify-content-center">
     <div class="col-md-4">
-        <form asp-action="Add">
+      <form enctype="multipart/form-data" asp-action="Add">
             <h3>Add new item to inventory</h3>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -34,6 +34,12 @@
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
             </div>
+             <div class="form-group col">
+                    <label asp-for="productImage" class="control-label"></label>
+                    <input asp-for="productImage"  id="prdImg" class ="form-control" onchange="document.getElementById('productImg').src = window.URL.createObjectURL(this.files[0])"/>
+                    <span asp-validation-for="productImage" class="text-danger"></span>
+                    <img id="productImg" src="" alt="Product Image" width="150" height="150" style="border:1px;margin-top:20px;margin-left:20px;"/>
+                </div>
             <div class="form-group d-flex justify-content-between">
                 <input type="submit" value="Add" class="btn btn-primary col-5" />
                 <a asp-action="Index" class="btn btn-secondary col-5">List of Items</a>
@@ -42,6 +48,14 @@
     </div>
 </div>
 
-@*@section Scripts {
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+
+<script type="text/javascript">
+ $(".custom-file-input").on("change", function () {
+     var fileName = $(productImage).val().split("\\").pop();
+     $(productImage).siblings(".custom-file-label").addClass("selected").html(fileName);
+ });
+    
+</script>
+}

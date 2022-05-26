@@ -30,6 +30,9 @@
                 <th scope="col">
                     Quantity
                 </th>
+                <th scope="col">
+                    Image
+                </th>
                 <th class="col-3"></th>
             </tr>
         </thead>
@@ -50,6 +53,9 @@
                 </td>
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                 <td class="align-middle">
+                   <img src="~/img/@item.ImageUrl" style="width:75px;height:75px;" />
                 </td>
                 <td class="align-middle">
                     @Html.ActionLink("Edit", "Edit", new {  id=item.ProductId  }, new {  @class =  "btn btn-primary" }) 

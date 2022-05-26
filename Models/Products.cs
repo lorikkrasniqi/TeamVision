@@ -18,6 +18,11 @@ namespace VisionStore.Models
         [Required(ErrorMessage = "You need to provide product's Quantity")]
         public int Quantity { get; set; }
 
+        public string ImageUrl { get; set; }
+        [Required(ErrorMessage = "Insert product image")]
+        [Display(Name = "Product Image")]
+        [NotMapped]
+        public IFormFile productImage { get; set; }
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
 
         public int CategoryId { get; set; }
