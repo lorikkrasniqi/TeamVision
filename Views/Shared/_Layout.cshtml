@@ -22,6 +22,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+<link rel="stylesheet" href="~/css/ContactUs.css" />
 
 
 
@@ -60,19 +61,19 @@
             <div class="header-top">
                 <div class="container">
                     <div class="ht-left">
-                        
-            
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <div class="mail-service">
-                                    <i class=" fa fa-envelope"></i>
+
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="mail-service">
+                                <i class=" fa fa-envelope"></i>
                                 <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
 
                                 <a asp-action="UserData" class="text-dark" asp-controller="user">| Profile</a>
-                                </div>
-                            }
-                     </div>  
-                   
+                            </div>
+                        }
+                    </div>
+
                     <div class="ht-right">
                         <div class="lan-selector">
                             <select class="language_drop" name="countries" id="countries" style="width:300px">
@@ -86,7 +87,7 @@
                             <a href="https://www.facebook.com/starlabs.dev" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="https://www.instagram.com/starlabs.dev/" target="_blank"><i class="fa fa-instagram"></i></a>
                             <a href="https://twitter.com/StarLabsDev" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><partial name="_LoginPartial"/></a>
+                            <a href="#"><partial name="_LoginPartial" /></a>
 
 
                         </div>

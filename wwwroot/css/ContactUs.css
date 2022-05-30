@@ -1,0 +1,150 @@
+﻿.contact {
+    background-color: #edf2fb;
+    position: relative;
+    min-height: 100vh;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+    .contact .content {
+        max-width: 800px;
+        text-align: center;
+    }
+
+        .contact .content h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-family: Amperzand;
+            font-weight: 500;
+            color: #14213D;
+        }
+
+        .contact .content p {
+            font-weight: 300;
+            color: #000000;
+            font-size: 20px;
+        }
+
+.containerC {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+    .containerC .contactInfo {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .containerC .contactInfo .shPageBox {
+            position: relative;
+            padding: 20px 0;
+            display: flex;
+        }
+
+            .containerC .contactInfo .shPageBox .icon {
+                min-width: 70px;
+                height: 70px;
+                background-color: #14213D;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                font-size: 22px;
+            }
+
+                .containerC .contactInfo .shPageBox .icon:hover {
+                    background-color: aqua;
+                }
+
+            .containerC .contactInfo .shPageBox .shPageText {
+                display: flex;
+                margin-left: 20px;
+                font-size: 16px;
+                color: #14213D;
+                flex-direction: column;
+                font-weight: 300;
+            }
+
+                .containerC .contactInfo .shPageBox .shPageText h3 {
+                    font-weight: 500;
+                    font-family: Amperzand;
+                    font-size: 22px;
+                    color: #14213D;
+                }
+
+.contactForm {
+    width: 40%;
+    padding: 40px;
+    background-color: #14213D;
+    border-radius: 70px;
+}
+
+    .contactForm h2 {
+        font-size: 30px;
+        color: white;
+        font-weight: 500;
+    }
+
+    .contactForm .inputBox {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+        .contactForm .inputBox input, textarea {
+            width: 100%;
+            padding: 5px 0;
+            font-size: 16px;
+            margin: 10px 0;
+            border-bottom: 2px solid #535353;
+            resize: none;
+        }
+
+        .contactForm .inputBox span {
+            position: absolute;
+            left: 0;
+            padding: 5px 0;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .contactForm .inputBox input[type="submit"] {
+            width: 100px;
+            background: #ffffff;
+            color: #000000;
+            border-bottom-left-radius: 25px;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+            .contactForm .inputBox input[type="submit"]:hover {
+                background-color: #14213D;
+                font-weight: bold;
+                transition: .5s;
+            }
+
+@media (max-width: 991px) {
+    .contact {
+        padding: 50px;
+    }
+
+    .containerC {
+        flex-direction: column;
+    }
+
+        .containerC .contactInfo {
+            margin-bottom: 40px;
+        }
+
+    .contact .contactInfo, .contactForm {
+        width: 100%;
+    }
+}
+    
