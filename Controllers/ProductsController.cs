@@ -31,7 +31,7 @@ namespace VisionStore.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity","productImage")]Products product)
+        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity", "productImage")]Products product)
         {
             //if(!ModelState.IsValid)
             //{
@@ -62,7 +62,7 @@ namespace VisionStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id,[Bind("CategoryId","ProductId", "Title", "Description", "Price", "Quantity")] Products product)
+        public async Task<IActionResult> Edit(int id,[Bind("CategoryId","ProductId", "Title", "Description", "Price", "Quantity", "productImage")] Products product)
         {
             //if (!ModelState.IsValid)
             //{
