@@ -33,10 +33,12 @@ namespace VisionStore.Data
         }
 
 
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<OrderedProducts> OrderedProducts { get; set; }
+        public DbSet<ContactUs> ContactUs { get; set; }
     
     }
 }

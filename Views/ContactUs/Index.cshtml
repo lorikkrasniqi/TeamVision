@@ -1,6 +1,8 @@
-﻿@*
-    
-*@
+﻿@model ContactUs
+@using Microsoft.AspNetCore.Identity
+@using VisionStore.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "Contact us";
 }
@@ -40,18 +42,18 @@
                         <h2 style="color:#14213D">Send Messages</h2>  
                         <div class="inputBox">
                             <label>Name</label>
-                          @*  <input asp-for="Name" class="form-control"/>*@
-                            <input type="text" name="" placeholder="Full Name...">
+                            @*<input asp-for="FullName" class="form-control"/>*@
+                            <input type="text" readonly value = "@UserManager.GetUserAsync(User).Result.FirstName" placeholder=" FullName...">
                         </div>
                         <div class="inputBox">
                             <label>Email</label>
-                          @*  <input asp-for="Email" class="form-control" />*@
-                            <input type="text" name="" placeholder="Your Email...">
+                           @* <input asp-for="Email" class="form-control" />*@
+                            <input type="text" readonly value="@UserManager.GetUserName(User)" placeholder="Your Email...">
                         </div>
                         <div class="inputBox">
                             <label>Message</label>
-                         @*   <textarea asp-for="message" class="form-control" placeholder="Your Message..."></textarea>*@
-                            <textarea  class="form-control" placeholder="your message..."></textarea>
+                            <textarea asp-for="Message" class="form-control" placeholder="Your Message..."></textarea>
+                           @* <textarea  class="form-control" placeholder="your message..."></textarea>*@
                         </div>
                         <div class="inputBox">
                             <input type="submit" value="Send"> 
