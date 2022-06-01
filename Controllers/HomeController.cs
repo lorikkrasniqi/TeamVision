@@ -1,21 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using VisionStore.Data;
+using VisionStore.Services.IServices;
 using VisionStore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace VisionStore.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
+        private readonly IProductsService _service;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductsService service, AppDbContext context)
         {
+            _service = service;
+            _context = context;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allProducts = await _context.Products.ToListAsync();
+            return View(allProducts);
         }
 
         public IActionResult Privacy()
