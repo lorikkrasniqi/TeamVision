@@ -1,7 +1,7 @@
 ﻿@model VisionStore.Models.ContactUs
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ContactUs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="contact">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="contactForm">
+  <div class="contactForm">
              <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -52,7 +52,7 @@
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                 <button type="submit" value="Index" class="btn-dark btn w-25">Send</button>
             </div>
         </form>
         </div>

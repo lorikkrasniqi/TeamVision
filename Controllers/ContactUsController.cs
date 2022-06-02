@@ -10,23 +10,24 @@ namespace VisionStore.Controllers
         public ContactUsController(AppDbContext context)
         {
             _context = context;
-        }
+        }       
         public IActionResult Index()
         {
             return View();
         }
+ 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(ContactUs message)
+        public IActionResult Index([Bind("FullName","Email","Message" )]ContactUs msg)
         {
             if (ModelState.IsValid)
             {
-                _context.ContactUs.Add(message);
+                _context.ContactUs.Add(msg);
                 _context.SaveChanges();
                 return View("Index");
             }
-            return View(message);
+            return View(msg);
         }
     }
 }
