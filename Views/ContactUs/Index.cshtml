@@ -1,66 +1,66 @@
-﻿@model ContactUs
-@using Microsoft.AspNetCore.Identity
-@using VisionStore.Areas.Identity.Data
-@inject UserManager<ApplicationUser> UserManager
-@inject SignInManager<ApplicationUser> SignInManager
+﻿@model VisionStore.Models.ContactUs
+
 @{
-    ViewData["Title"] = "Contact us";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <section class="contact">
-            <div class="content">
-                <h2>Contact us</h2>
-                <p>You can contact us by phone number, email and other means displayed below</p>
-            </div>
-            <div class="containerC">
-                <div class=contactInfo>
-                    <div class="PageBox">
-                        <div class="icon text-dark"><i class="fa fa-map-marker"></i></div>
-                        <div class="PageText">
-                            <h3>Address</h3>
-                            <p>St. Bill Clinton<br>Prishtinë<br>Main Square</p>
-                        </div>
-                    </div>
-                    <div class="PageBox">
-                        <div class="icon text-dark"><i class="fa fa-envelope-o"></i></div>
-                        <div class="PageText">
-                            <h3>Email</h3>
-                            <p>gmail-gmail@outlook.com<br>Email.email@outlook.com</p>
-                        </div>
-                    </div>
-                    <div class="PageBox">
-                        <div class="icon text-dark"><i class="fa fa-phone"></i></div>
-                        <div class="PageText">
-                            <h3>Phone</h3>
-                            <p>+383 43 000 000</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contactForm">
-                    <form method="post" asp-action="Index">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <h2 style="color:#14213D">Send Messages</h2>  
-                        <div class="inputBox">
-                            <label>Name</label>
-                            @*<input asp-for="FullName" class="form-control"/>*@
-                            <input type="text" readonly value = "@UserManager.GetUserAsync(User).Result.FirstName" placeholder=" FullName...">
-                        </div>
-                        <div class="inputBox">
-                            <label>Email</label>
-                           @* <input asp-for="Email" class="form-control" />*@
-                            <input type="text" readonly value="@UserManager.GetUserName(User)" placeholder="Your Email...">
-                        </div>
-                        <div class="inputBox">
-                            <label>Message</label>
-                            <textarea asp-for="Message" class="form-control" placeholder="Your Message..."></textarea>
-                           @* <textarea  class="form-control" placeholder="your message..."></textarea>*@
-                        </div>
-                       @* <div class="inputBox">
-                            <input type="submit" value="Send"> 
-                        </div>*@
-                         <button id="registerSubmit" type="submit" class="inputBox btn-dark btn-lg w-25 mt-4 ">Sent</button>
-                    </form>
-
+    <div class="content">
+        <h2>Contact us</h2>
+        <p>You can contact us by phone number, email and other means displayed below</p>
+    </div>
+    <div class="containerC">
+        <div class=contactInfo>
+            <div class="PageBox">
+                <div class="icon text-dark"><i class="fa fa-map-marker"></i></div>
+                <div class="PageText">
+                    <h3>Address</h3>
+                    <p>St. Bill Clinton<br>Prishtinë<br>Main Square</p>
                 </div>
             </div>
+            <div class="PageBox">
+                <div class="icon text-dark"><i class="fa fa-envelope-o"></i></div>
+                <div class="PageText">
+                    <h3>Email</h3>
+                    <p>gmail-gmail@outlook.com<br>Email.email@outlook.com</p>
+                </div>
+            </div>
+            <div class="PageBox">
+                <div class="icon text-dark"><i class="fa fa-phone"></i></div>
+                <div class="PageText">
+                    <h3>Phone</h3>
+                    <p>+383 43 000 000</p>
+                </div>
+            </div>
+        </div>
+        <div class="contactForm">
+             <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <input asp-for="Message" class="form-control" />
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        </div>
+    </div>
 </section>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
