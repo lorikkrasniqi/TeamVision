@@ -4,7 +4,7 @@
     min-height: 100vh;
     padding: 50px 100px;
     display: flex;
-    background-image: linear-gradient(rgba(4, 9, 30, 0.884),rgba(0, 10, 46, 0.815)), url(/css/Img/pc1.jpg);
+    background-image: linear-gradient(rgba(4, 9, 30, 0.884),rgba(0, 10, 46, 0.815)), url(/img/pc1.jpg);
     background-size: cover;
     justify-content: center;
     align-items: center;
