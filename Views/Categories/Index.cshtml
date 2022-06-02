@@ -11,6 +11,14 @@
     <h3 class="text-center">List of all Categories</h3>  
     <a class="mt-5 mb-2 btn btn-success" asp-action="Create">Add Category</a>
 </div>
+<form method="get" asp-action="Index">
+        <p>
+            <input type="search" placeholder="Enter A Category....." value="@ViewData["GetCategoryDetails"]" name="CategorySearch" style="width:500px;"/>
+            <input type="submit" value="Search" class="btn btn-success mt-5"/>
+            <a asp-action"Index">Get All Category</a>
+        </p>
+            </form>
+
 <div class="admin-container  row flex-column align-items-center justify-content-center">
     <table class="table col-8 table">
         <thead class="thead-dark text-white">
