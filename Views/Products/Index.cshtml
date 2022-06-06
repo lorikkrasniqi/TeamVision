@@ -9,14 +9,13 @@
 </div>
 <div class="admin-container  row flex-column align-items-center justify-content-center">
     <p>
-        <a asp-action="Add" class="btn btn-success mt-5">Add Products</a>
+        <a asp-action="Add" class="btn btn-success mb-2 mt-3">Add Products</a>
     </p>
     
-    <form method="get" asp-action="Index">
+    <form method="get" asp-action="Index" class="mb-5">
         <p>
-            <input type="search" placeholder="Enter A ProductID....." value="@ViewData["GetProductDetails"]" name="ProductSearch" style="width:500px;"/>
-            <input type="submit" value="Search" class="btn btn-success mt-5"/>
-            <a asp-action"Index">Get All ProductID</a>
+            <input type="search" placeholder="Enter A ProductID....." value="@ViewData["GetProductDetails"]" name="ProductSearch" style="width:300px;"/>
+            <input type="submit" value="Search" class="btn btn-success"/>
         </p>
             </form>
     <table class="col-8 table">

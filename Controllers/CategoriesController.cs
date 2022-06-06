@@ -33,12 +33,12 @@ namespace VisionStore.Controllers
         {
             ViewData["GetCategoryDetails"] = CategorySearch;
 
-            var product = from x in _db.Products select x;
+            var category = from x in _db.Categories select x;
             if (!string.IsNullOrEmpty(CategorySearch))
             {
-                product = product.Where(x => x.Description.Contains(CategorySearch) || x.Title.Contains(CategorySearch));
+                category = category.Where(x => x.Description.Contains(CategorySearch) || x.Name.Contains(CategorySearch));
             }
-            return View(await product.AsNoTracking().ToListAsync());
+            return View(await category.AsNoTracking().ToListAsync());
         }
 
         public IActionResult Create()

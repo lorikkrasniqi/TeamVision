@@ -8,7 +8,7 @@ using VisionStore.Areas.Identity.Data;
 using VisionStore.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("VisionStoreContextConnection");;
+var connectionString = builder.Configuration.GetConnectionString("VisionStoreContextConnection");
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -44,6 +44,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.MapRazorPages();
 app.Run();
