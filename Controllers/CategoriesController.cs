@@ -14,15 +14,31 @@ namespace VisionStore.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _category;
+        private readonly AppDbContext _db;
 
-        public CategoriesController(ICategoryService category)
+        public CategoriesController(ICategoryService category, AppDbContext db)
         {
             _category = category;
+            _db = db;
         }
         public async Task<IActionResult> Index()
         {
             var list = await _category.GetAllAsync();
             return View(list);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Index(string CategorySearch)
+        {
+            ViewData["GetCategoryDetails"] = CategorySearch;
+
+            var category = from x in _db.Categories select x;
+            if (!string.IsNullOrEmpty(CategorySearch))
+            {
+                category = category.Where(x => x.Description.Contains(CategorySearch) || x.Name.Contains(CategorySearch));
+            }
+            return View(await category.AsNoTracking().ToListAsync());
         }
 
         public IActionResult Create()
