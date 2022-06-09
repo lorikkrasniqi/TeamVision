@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "List of all roles";
+}
+
+<h1 class="text-center">All roles</h1>
+@if(Model.Any())
+{
+    <div class="admin-container  row flex-column align-items-center justify-content-center">
+     <table class="table col-8 table">
+        <thead class="thead-dark text-white">
+            <tr>
+                <th scope ="col">
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="text-align:start;">CRUD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="text-align:end;">
+                      //  <a class="btn btn-primary" asp-action="EditRole" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+}
+
+ else{
+    
+ }
