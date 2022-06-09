@@ -4,13 +4,14 @@
 
 }
 
-<h1>Edit Role</h1>
 
-<h4>Roles</h4>
-<hr />
-<div class="row">
+<h1 class="text-center mt-5 mb-5">Edit Role</h1>
+
+<div class="admin-container  row flex-column align-items-center justify-content-center mb-5">
+
     <div class="col-md-4">
-        <form method="post" asp-action="EditRoles">
+        <form method="post" asp-action="EditRole">
+            <h4 class="text-center">Roles</h4>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -18,18 +19,58 @@
                 <input asp-for="RoleName" class="form-control" />
                 <span asp-validation-for="RoleName" class="text-danger"></span>
             </div>
-        @*    <div class="form-group">
+            @*    <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                </div>*@
+            <hr>
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a class="btn btn-secondary " asp-action="ListRoles">Back to List</a>
             </div>
+            <hr>
         </form>
+
+
     </div>
+
 </div>
 
-<div>
-    <a asp-action="ListRoles">Back to List</a>
+<div class="admin-container  row flex-column align-items-center justify-content-center my-5">
+    <table class="table col-8 table">
+        <thead class="thead-dark text-white">
+            <tr>
+                <th scope="col">
+                  <h3>Users in this role</h3>
+                </th>
+                <th style="text-align:start;">CRUD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Users.Any())
+            {
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        d<td class="align-middle">
+                            <h3>Users in this role</h3>
+                        </td>
+                        <td style="text-align:end;">
+                         @*   <a class="btn btn-primary" asp-action="EditRole" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                  <td class="align-middle">
+                         <h5>There are no roles for the current user</h5>
+                        </td>
+            }
+
+        </tbody>
+
 </div>
+

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VisionStore.Areas.Identity.Data;
 using VisionStore.Models;
 
 namespace VisionStore.Controllers
@@ -7,8 +8,8 @@ namespace VisionStore.Controllers
     public class AdministrationController : Controller
     {
         public readonly RoleManager<IdentityRole> _roleManager;
-        public readonly UserManager<IdentityUser> _userManager;
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public readonly UserManager<ApplicationUser> _userManager;
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -50,7 +51,7 @@ namespace VisionStore.Controllers
             return View(roles);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -74,9 +75,33 @@ namespace VisionStore.Controllers
 
             }
             return View(model);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRolesViewModel model)
+        {
+            var role = await _roleManager.FindByIdAsync(model.Id);
+            if (role == null)
+            {
+                return View("Not found");
+            }
+            else
+            {
+                role.Name = model.RoleName;
+                var result = await _roleManager.UpdateAsync(role);
 
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
 
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }     
+                return View(model);
+            }
+       
         }
     }
 }

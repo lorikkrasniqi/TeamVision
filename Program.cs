@@ -15,11 +15,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-//   .AddRoles<IdentityRole>().AddUserManager<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
+//  /* .AddRoles<IdentityRole>()*/.AddEntityFrameworkStores<AppDbContext>();
 
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)yRole>()
+//    .AddEntityFrameworkStores<AppDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,9 +26,10 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<ICategoryService,CategoryServices>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-//                .AddEntityFrameworkStores<AppDbContext>();
-//builder.Services.AddDefaultIdentity<ApplicationUser, IdentityRole>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
