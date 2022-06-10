@@ -42,7 +42,7 @@
         <thead class="thead-dark text-white">
             <tr>
                 <th scope="col">
-                  <h3>Users in this role</h3>
+                    Users in this role
                 </th>
                 <th style="text-align:start;">CRUD</th>
             </tr>
@@ -53,24 +53,24 @@
                 @foreach (var item in Model.Users)
                 {
                     <tr>
-                        d<td class="align-middle">
+                        <td class="align-middle">
                             <h3>Users in this role</h3>
                         </td>
-                        <td style="text-align:end;">
-                         @*   <a class="btn btn-primary" asp-action="EditRole" asp-route-id="@item.Id">Edit</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                        </td>
+
                     </tr>
                 }
             }
             else
             {
-                  <td class="align-middle">
-                         <h5>There are no roles for the current user</h5>
-                        </td>
+            <td class="align-middle">
+                <h5>There are no users for the current role</h5>
+            </td>
             }
-
+        <td style="text-align:end;">
+            <a class="btn btn-primary" asp-controller="Administration" asp-action="EditUsersRole" asp-route-roleId="@Model.Id">Add user</a>
+            <a class="btn btn-danger" asp-action="Delete">Delete user</a>
+        </td>
         </tbody>
-
+    </table>
 </div>
 
