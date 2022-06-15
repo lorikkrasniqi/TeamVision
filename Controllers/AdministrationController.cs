@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VisionStore.Areas.Identity.Data;
 using VisionStore.Models;
 
 namespace VisionStore.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         public readonly RoleManager<IdentityRole> _roleManager;
@@ -44,6 +47,34 @@ namespace VisionStore.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var role = await _roleManager.Roles
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            return View(role);
+        }
+
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            RoleViewModel rvm = new RoleViewModel();
+            var role = await _roleManager.Roles.FindAsync(id);
+            _roleManager.Roles.Remove(role);
+            await _roleManager.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         [HttpGet]
         public IActionResult ListRoles()
         {
@@ -68,7 +99,8 @@ namespace VisionStore.Controllers
 
             foreach (var user in _userManager.Users)
             {
-                if (await _userManager.IsInRoleAsync(user, role.Id))
+                var usersInRole = await _userManager.IsInRoleAsync(user, role.Name);
+                if (usersInRole)
                 {
                     model.Users.Add(user.UserName);
                 }
@@ -78,11 +110,12 @@ namespace VisionStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditRole(EditRolesViewModel model)
+        public async Task<IActionResult>EditRole(EditRolesViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
             if (role == null)
             {
+                ViewBag.ErrorMessage = $"Role with Id ={model.Id} does not exist.";  
                 return View("Not found");
             }
             else
@@ -151,7 +184,7 @@ namespace VisionStore.Controllers
                 for (int i = 0; i < model.Count; i++)
                 {
                     var user = await _userManager.FindByIdAsync(model[i].UserId);
-
+                        
                     IdentityResult result = null;
                     if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user,role.Name)))
                     {

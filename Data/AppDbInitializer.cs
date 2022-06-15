@@ -34,7 +34,7 @@ namespace VisionStore.Data
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 }
 
-                string userEmail = "admin@visionstore.com";
+                string userEmail = "user@visionstore.com";
                 var appUser = await userManager.FindByEmailAsync(userEmail);
                 if (adminUser == null)
                 {
