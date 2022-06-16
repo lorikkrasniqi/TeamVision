@@ -19,22 +19,13 @@
                 <input asp-for="RoleName" class="form-control" />
                 <span asp-validation-for="RoleName" class="text-danger"></span>
             </div>
-            @*    <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-                </div>*@
-            <hr>
             <div class="form-group d-flex justify-content-between">
                 <input type="submit" value="Save" class="btn btn-success" />
                 <a class="btn btn-secondary " asp-action="ListRoles">Back to List</a>
             </div>
             <hr>
         </form>
-
-
     </div>
-
 </div>
 
 <div class="admin-container  row flex-column align-items-center justify-content-center my-5">
@@ -47,27 +38,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
                 @if (Model.Users.Any())
                 {
                     @foreach (var user in Model.Users)
                     {
-                        <td class="align-middle">
+                        <tr>
+                          <td class="align-middle">
                             <h5 class="card-title">@user</h5>
-                        </td>
+                          </td
+                        </tr>
                     }
                 }
                 else
                 {
-                    <td class="align-middle">
+                    <tr>
+                      <td class="align-middle">
                         <h5>There are no users for the current role</h5>
-                    </td>
+                      </td>
+                    </tr>
                 }
-            </tr>
         </tbody>
         <tr>
             <td style="text-align:start;">
-                <a class="btn btn-primary" asp-controller="Administration" asp-action="EditUsersRole" asp-route-roleId="@Model.Id">Add or remove a user</a>
+                <a class="btn btn-secondary" asp-controller="Administration" asp-action="EditUsersRole" asp-route-roleId="@Model.Id">Add or remove a user</a>
             </td>
         </tr>
 

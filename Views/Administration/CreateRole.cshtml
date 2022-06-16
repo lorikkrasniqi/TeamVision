@@ -1,5 +1,4 @@
-﻿
-@model RoleViewModel
+﻿@model RoleViewModel
 @{
     ViewData["Title"]= "Add role";
 }
@@ -8,15 +7,15 @@
 <div class="admin-container  row flex-column align-items-center justify-content-center mb-5">
 
 <div class=col-md-4> 
-    <form method = "post">
+    <form method ="post">
         <div asp-validation-summary="ModelOnly" class ="text-danger"></div>
+        <input type="hidden" asp-for="RoleId" />
         <div class="form-group">
             <label asp-for="RoleName"></label>
             <input asp-for="RoleName" class="form-control"/>
             <span asp-validation-for="RoleName" class="text-danger"></span>
         </div>
        <button type="submit" class="btn-dark btn-lg w-100 ">Create role</button>
-
     </form>
 </div>
 </div>

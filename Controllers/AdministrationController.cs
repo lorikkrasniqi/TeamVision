@@ -26,54 +26,58 @@ namespace VisionStore.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRoleAsync(RoleViewModel model)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            IdentityRole identityRole = new IdentityRole
             {
-                IdentityRole identityRole = new IdentityRole
-                {
-                    Name = model.RoleName
-                };
-                IdentityResult result = await _roleManager.CreateAsync(identityRole);
+                Name = model.RoleName
+            };
+            IdentityResult result = await _roleManager.CreateAsync(identityRole);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "home");
-                }
-
-                foreach (IdentityError error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ListRoles", "Administration");
             }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            //}
             return View(model);
         }
-
-        public async Task<IActionResult> Delete(string? id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteRole(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var role = await _roleManager.Roles
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var role = await _roleManager.FindByIdAsync(id);
+            RoleViewModel roleModel = new RoleViewModel()
+            {
+                RoleId = role.Id
+
+            };
             if (role == null)
             {
-                return NotFound();
+                return NotFound(role);
             }
 
-            return View(role);
+            return View(roleModel);
         }
 
         // POST: Movies/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteRole")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             RoleViewModel rvm = new RoleViewModel();
-            var role = await _roleManager.Roles.FindAsync(id);
-            _roleManager.Roles.Remove(role);
-            await _roleManager.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var role = await _roleManager.FindByIdAsync(id);
+            await _roleManager.DeleteAsync(role);
+
+            return RedirectToAction("ListRoles");
         }
         [HttpGet]
         public IActionResult ListRoles()
@@ -110,12 +114,12 @@ namespace VisionStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>EditRole(EditRolesViewModel model)
+        public async Task<IActionResult> EditRole(EditRolesViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
             if (role == null)
             {
-                ViewBag.ErrorMessage = $"Role with Id ={model.Id} does not exist.";  
+                ViewBag.ErrorMessage = $"Role with Id ={model.Id} does not exist.";
                 return View("Not found");
             }
             else
@@ -177,36 +181,36 @@ namespace VisionStore.Controllers
         {
             var role = await _roleManager.FindByIdAsync(roleId);
             {
-                if(role == null)
+                if (role == null)
                 {
                     return View("NotFound");
                 }
                 for (int i = 0; i < model.Count; i++)
                 {
                     var user = await _userManager.FindByIdAsync(model[i].UserId);
-                        
+
                     IdentityResult result = null;
-                    if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user,role.Name)))
+                    if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user, role.Name)))
                     {
-                       result = await _userManager.AddToRoleAsync(user, role.Name);
+                        result = await _userManager.AddToRoleAsync(user, role.Name);
                     }
-                    else if(!model[i].IsSelected && await _userManager.IsInRoleAsync(user, role.Name))
+                    else if (!model[i].IsSelected && await _userManager.IsInRoleAsync(user, role.Name))
                     {
-                        result = await _userManager.RemoveFromRoleAsync(user,role.Name);
+                        result = await _userManager.RemoveFromRoleAsync(user, role.Name);
                     }
                     else
                     {
                         continue;
                     }
 
-                    if(result.Succeeded)
+                    if (result.Succeeded)
                     {
-                        if(i < model.Count -1 )
+                        if (i < model.Count - 1)
                         {
                             continue;
                         }
-                        else 
-                            return RedirectToAction("EditRole", new {Id = roleId});
+                        else
+                            return RedirectToAction("EditRole", new { Id = roleId });
                     }
 
                 }
