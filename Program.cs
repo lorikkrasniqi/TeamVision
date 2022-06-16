@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using VisionStore.Services;
 using VisionStore.Areas.Identity.Data;
 using VisionStore.Services.IServices;
+using VisionStore.Data.Cart;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("VisionStoreContextConnection");;
@@ -23,6 +24,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 builder.Services.AddScoped<ICategoryService,CategoryServices>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();;
 
 app.UseAuthorization();

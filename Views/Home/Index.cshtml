@@ -198,7 +198,7 @@
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="w-icon active"><a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.ProductId"><i class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view">   @Html.ActionLink("+ Quick View", "Details", "Products", new {  id=item.ProductId  })  </li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
