@@ -18,7 +18,7 @@ namespace VisionStore.Models
         [Required(ErrorMessage = "You need to provide product's Quantity")]
         public int Quantity { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         [Required(ErrorMessage = "Insert product image")]
         [Display(Name = "Product Image")]
         [NotMapped]
@@ -27,6 +27,11 @@ namespace VisionStore.Models
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }  
+        public Category Category { get; set; }
+
+        internal static object AsNoTacking()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model EditRolesViewModel
+@{
+    ViewData["Title"] = "Edit Role";
+
+}
+
+
+<h1 class="text-center mt-5 mb-5">Edit Role</h1>
+
+<div class="admin-container  row flex-column align-items-center justify-content-center mb-5">
+
+    <div class="col-md-4">
+        <form method="post" asp-action="EditRole">
+            <h4 class="text-center">Roles</h4>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a class="btn btn-secondary " asp-action="ListRoles">Back to List</a>
+            </div>
+            <hr>
+        </form>
+    </div>
+</div>
+
+<div class="admin-container  row flex-column align-items-center justify-content-center my-5">
+    <table class="table col-8 table">
+        <thead class="thead-dark text-white">
+            <tr>
+                <th scope="col">
+                    Users in this role
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                @if (Model.Users.Any())
+                {
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                          <td class="align-middle">
+                            <h5 class="card-title">@user</h5>
+                          </td
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                      <td class="align-middle">
+                        <h5>There are no users for the current role</h5>
+                      </td>
+                    </tr>
+                }
+        </tbody>
+        <tr>
+            <td style="text-align:start;">
+                <a class="btn btn-secondary" asp-controller="Administration" asp-action="EditUsersRole" asp-route-roleId="@Model.Id">Add or remove a user</a>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
