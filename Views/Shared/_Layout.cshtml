@@ -67,7 +67,7 @@
                         {
                             <div class="mail-service">
                                 <i class=" fa fa-envelope"></i>
-                                <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                                <a id="manage" class="text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)</a>
 
                                 <a asp-action="UserData" class="text-dark" asp-controller="user">| Profile</a>
                             </div>
@@ -87,7 +87,8 @@
                             <a href="https://www.facebook.com/starlabs.dev" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="https://www.instagram.com/starlabs.dev/" target="_blank"><i class="fa fa-instagram"></i></a>
                             <a href="https://twitter.com/StarLabsDev" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><partial name="_LoginPartial" /></a>
+@*                            <a asp-controller="Account" , asp-action="Register">Register2</a> 
+*@                            <a href="#"><partial name="_LoginPartial" /></a>
 
 
                         </div>
@@ -116,6 +117,7 @@
                             </li>
 
                                <li class=""><a asp-controller="About" , asp-action="Index">About</a></li>
+                               <li class=""><a asp-controller="Administration" asp-action="ListRoles">Roles</a></li>
 
                         </ul>
 
