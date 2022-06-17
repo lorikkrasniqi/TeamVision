@@ -5,12 +5,10 @@
     ViewData["Title"] = "Shopping Cart Summary";
 }
 <html>
-
 <body>
-  
-       <h2>Your Shopping Cart Summary</h2>
+    <h2>Your Shopping Cart Summary</h2>
     <table class="table table-responsive" style="padding:100px;">
-          <thead>
+        <thead>
             <tr>
                 <th>Product Image</th>
                 <th>Quantity</th>
@@ -23,7 +21,6 @@
         <tbody>
             @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
             {
-                
                 <tr>
                     <td> <img src="~/img/@item.Products.ImageUrl" style="width:100px; height:100px" /></td>
                     <td style='text-align:center; vertical-align:middle'>@item.Quantity</td>
@@ -32,22 +29,17 @@
                     <td style='text-align:center; vertical-align:middle'>@((item.Quantity*item.Products.Price).ToString("c")) </td>
 
                     <td style='text-align:center; vertical-align:middle'>
-                         <a class="text-danger" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.Products.ProductId">
-                           <i class="bi bi-file-plus"></i>
+                        <a class="text-danger" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.Products.ProductId">
+                            <i class="bi bi-file-plus"></i>
                         </a>
 
-                        <a class="text-danger" asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Products.ProductId">  
-                   <i class="bi bi-trash"></i>
-                        </a>                        
-                    </td> 
-                  
-
+                        <a class="text-danger" asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Products.ProductId">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 </tr>
-                
             }
-
         </tbody>
-
         <tfoot>
             <tr>
                 <td colspan="4"></td>
@@ -58,14 +50,66 @@
 
             </tr>
         </tfoot>
-
     </table>
+    <div class="text-center">
+        <div class="btn-group">
+            @*    <a class="btn btn-outline-primay" asp-action="CompleteOder">
+                Complete order
+                </a>*@
+            <div id="paypal-btn"></div>
+            @*<span style="padding:5px"></span>*@
+            <a class="btn btn-outline-success" asp-controller="Home" action="Index">Add more products</a>
+        </div>
+    </div>
+</body>
+</html>
 
 
-    </body>
-    </html>
-    
-    
-    
-    
+
+@section Scripts{
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+
+    let _total = @Html.Raw(Model.ShoppingCartTotal);
+
+
+    paypal.Button.render({
+        env: 'sandbox',
+        client: {
+            sandbox ='ATl6zaxuHp8rCIa-der0seGwLWooOHXk_ZnoL7e46-4esc5Y6cO1waxr2ZIydPkJm4CwTlpMLIULekzD'
+        },
+
+        locale:'en_US',
+
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill'
+        },
+        commit: true,
+
+        payment: function (data, actions)
+        {
+            return actions.payment.create({
+                transactions: [{
+                    amount:{
+                        total = _total,
+                        currency: 'USD'
+                    }
+                }]
+            });
+        },
+
+        onAuthorize: function (data, actions)
+        {
+            console.log("payment executed");
+        }
+    }, '#paypal-btn')
+</script>
+}
+
+
+
+
 
