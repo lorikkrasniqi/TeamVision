@@ -20,6 +20,7 @@ namespace VisionStore.Controllers
         public async Task<IActionResult> Index()
         {
             var list = await _service.GetAllAsync();
+        
             return View(list);
         }
 

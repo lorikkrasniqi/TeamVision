@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VisionStore.Data.Cart;
 using VisionStore.Data.ViewModels;
+using VisionStore.Models;
 using VisionStore.Services.IServices;
 
 namespace VisionStore.Controllers
@@ -15,11 +18,14 @@ namespace VisionStore.Controllers
             _productsService = productsService;
             _shoppingCart = shoppingCart;
         }
+
+        [Authorize]
         public IActionResult Index()
         {
+
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
-
+          
 
             var response = new ShoppingCartVM()
             {
@@ -28,18 +34,27 @@ namespace VisionStore.Controllers
             };
             return View(response);
         }
-
-        public async Task<IActionResult> AddToShoppingCart(int id)
+       
+        [AutoValidateAntiforgeryToken]
+        [Authorize]
+        public async Task<IActionResult> AddToShoppingCart(int id,ShoppingCartItem shoppingCart)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            shoppingCart.ApplicationUserId = claim.Value;
+
+               
+
             var item = await _productsService.GetByIdAsync(id);
 
             if(item != null)
             {
-                _shoppingCart.AddItemToCart(item);
+                _shoppingCart.AddItemToCart(item,claim.Value);
             }
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public async Task<IActionResult> RemoveItemFromShoppingCart(int id)
         {
             var item = await _productsService.GetByIdAsync(id);

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VisionStore.Data.Cart;
+using VisionStore.Data.ViewModels;
 
 namespace VisionStore.Models
 {
@@ -24,6 +26,7 @@ namespace VisionStore.Models
         [NotMapped]
         public IFormFile productImage { get; set; }
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
+
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]

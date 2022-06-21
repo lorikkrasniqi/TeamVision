@@ -15,17 +15,18 @@ var connectionString = builder.Configuration.GetConnectionString("VisionStoreCon
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));;
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<VisionStore.Areas.Identity.Data.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<AppDbContext>();;
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+builder.Services.AddScoped<IUnitWork, UnitWork>();
 builder.Services.AddScoped<ICategoryService,CategoryServices>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+builder.Services.AddScoped(sc => VisionStore.Data.Cart.ShoppingCart.GetShoppingCart(sc));
 
 builder.Services.AddSession();
 var app = builder.Build();
