@@ -83,8 +83,16 @@ namespace VisionStore.Data.Cart
             return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Products).ToList());
         }
 
-        public double GetShoppingCartTotal() => _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Products.Price * n.Quantity).Sum();
-           
+        public List<ShoppingCartItem> GetUserShoppingCartItems(string userId)
+        {
+            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId && n.ApplicationUserId == userId).Include(n => n.Products).ToList());
         }
-    }
 
+        public double GetShoppingCartTotal() => _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Products.Price * n.Quantity).Sum();
+
+        public double GetUserShoppingCartTotal(string userId) => _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId && n.ApplicationUserId == userId)
+                                                                                          .Select(n => n.Products.Price * n.Quantity).Sum();
+
+
+    }
+}

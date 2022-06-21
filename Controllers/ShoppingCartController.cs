@@ -22,15 +22,19 @@ namespace VisionStore.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
 
-            var items = _shoppingCart.GetShoppingCartItems();
+
+            var items = _shoppingCart.GetUserShoppingCartItems(userId);
             _shoppingCart.ShoppingCartItems = items;
           
 
             var response = new ShoppingCartVM()
             {
                 ShoppingCart = _shoppingCart,
-                ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+                ShoppingCartTotal = _shoppingCart.GetUserShoppingCartTotal(userId)
             };
             return View(response);
         }

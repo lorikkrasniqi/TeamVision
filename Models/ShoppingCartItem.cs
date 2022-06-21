@@ -12,19 +12,21 @@ namespace VisionStore.Models
 
 
         
-        public Products Products { get; set; }  
+        public Products Products { get; set; }
 
-        public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         [ValidateNever]
+        public int ProductId { get; set; }
+
      
         public int Count { get; set; }  
 
         public int Quantity { get; set; }
 
-        public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
+        public string ApplicationUserId { get; set; }
+
          public string ShoppingCartId { get; set; }
  
 
