@@ -22,7 +22,6 @@ builder.Services.AddDefaultIdentity<VisionStore.Areas.Identity.Data.ApplicationU
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
-builder.Services.AddScoped<IUnitWork, UnitWork>();
 builder.Services.AddScoped<ICategoryService,CategoryServices>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
