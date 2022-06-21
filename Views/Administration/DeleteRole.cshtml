@@ -1,0 +1,29 @@
+﻿
+@model VisionStore.Models.RoleViewModel
+
+@{
+    ViewData["Title"] = "Delete a Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Roles</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RoleId)
+        </dd>
+    </dl>
+    
+    <form asp-controller="Administration" method="post" asp-action="DeleteRole">
+        <input type="hidden" asp-for="RoleId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-controller="Administration" asp-action="ListRoles">Back to List</a>
+    </form>
+</div>

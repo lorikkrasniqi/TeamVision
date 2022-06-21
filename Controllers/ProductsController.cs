@@ -4,6 +4,7 @@ using VisionStore.Data;
 using VisionStore.Models;
 using VisionStore.Services.IServices;
 using System.Collections;
+using Microsoft.EntityFrameworkCore;
 
 namespace VisionStore.Controllers
 {
@@ -11,9 +12,11 @@ namespace VisionStore.Controllers
     {
         private readonly IProductsService _service;
         private readonly ICategoryService _category;
+        private readonly AppDbContext _db;
 
-        public ProductsController(IProductsService service, ICategoryService category)
+        public ProductsController(IProductsService service, ICategoryService category, AppDbContext db)
         {
+            _db = db;
             _service = service;
             _category = category;
         }
@@ -22,6 +25,20 @@ namespace VisionStore.Controllers
             var list = await _service.GetAllAsync();
         
             return View(list);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Index(string ProductSearch)
+        {
+            ViewData["GetProductDetails"] = ProductSearch;
+
+            var product = from x in _db.Products select x;
+            if (!string.IsNullOrEmpty(ProductSearch))
+            {
+                product = product.Where(x => x.Description.Contains(ProductSearch) || x.Title.Contains(ProductSearch));
+            }
+            return View(await product.AsNoTracking().ToListAsync());
         }
 
         public async Task<IActionResult> Add()
@@ -90,5 +107,6 @@ namespace VisionStore.Controllers
             return RedirectToAction("Index");
 
         }
+
     }
 }
