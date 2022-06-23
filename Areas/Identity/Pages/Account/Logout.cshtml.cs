@@ -17,16 +17,22 @@ namespace VisionStore.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
+        private readonly IServiceProvider _serviceProvider;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IServiceProvider services)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _serviceProvider = services;
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
+
+            ISession session = _serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            session.Remove("CartId");
+
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

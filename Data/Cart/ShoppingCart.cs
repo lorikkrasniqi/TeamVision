@@ -9,6 +9,8 @@ namespace VisionStore.Data.Cart
 
         public string ShoppingCartId { get; set; }
 
+        public List<Products> Products { get; set; }
+
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
 
 
@@ -30,9 +32,9 @@ namespace VisionStore.Data.Cart
             return new ShoppingCart(context) { ShoppingCartId = cartId };
         }
 
-        public void AddItemToCart(Products products)
+        public void AddItemToCart(Products products, string applicationUserId)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ShoppingCartId == ShoppingCartId);
+            var shoppingCartItem = _context.ShoppingCartItem.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ShoppingCartId == ShoppingCartId);
 
             if(shoppingCartItem == null)
             {
@@ -40,9 +42,11 @@ namespace VisionStore.Data.Cart
                 {
                     ShoppingCartId = ShoppingCartId,
                     Products = products,
-                    Quantity = 1
+                    Quantity = 1,
+                    ApplicationUserId = applicationUserId
+
                 };
-                _context.ShoppingCartItems.Add(shoppingCartItem);
+                _context.ShoppingCartItem.Add(shoppingCartItem);
             }
             else
             {
@@ -55,7 +59,7 @@ namespace VisionStore.Data.Cart
 
         public void RemoveItemFromCart(Products products)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ShoppingCartId == ShoppingCartId);
+            var shoppingCartItem = _context.ShoppingCartItem.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ShoppingCartId == ShoppingCartId);
 
             if (shoppingCartItem != null)
             {
@@ -65,7 +69,7 @@ namespace VisionStore.Data.Cart
                 }
                 else
                 {
-                    _context.ShoppingCartItems.Remove(shoppingCartItem);
+                    _context.ShoppingCartItem.Remove(shoppingCartItem);
 
                 }
             }
@@ -76,11 +80,19 @@ namespace VisionStore.Data.Cart
 
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Products).ToList());
+            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Products).ToList());
         }
 
-        public double GetShoppingCartTotal() => _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Products.Price * n.Quantity).Sum();
-           
+        public List<ShoppingCartItem> GetUserShoppingCartItems(string userId)
+        {
+            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId && n.ApplicationUserId == userId).Include(n => n.Products).ToList());
         }
+
+        public double GetShoppingCartTotal() => _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Products.Price * n.Quantity).Sum();
+
+        public double GetUserShoppingCartTotal(string userId) => _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId && n.ApplicationUserId == userId)
+                                                                                          .Select(n => n.Products.Price * n.Quantity).Sum();
+
+
     }
-
+}
