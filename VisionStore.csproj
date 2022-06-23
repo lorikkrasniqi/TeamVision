@@ -17,9 +17,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
-    <PackageReference Include="PayPalCheckoutSdk" Version="1.0.4" />
-    <PackageReference Include="PayPalHttp" Version="1.0.1" />
-    <PackageReference Include="PayPalHttpRequest.DotNet6" Version="1.0.2" />
 
 
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
