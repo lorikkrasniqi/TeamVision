@@ -67,6 +67,16 @@ namespace VisionStore.Controllers
 
             return View(product);
         }
+
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product = await _service.GetByIdAsync(id);
+            if (product == null)
+            { return View("NotFound"); }
+
+            return View(product);
+        }
+
         public async Task <IActionResult> Edit(int id)
         {
             var category = await _category.GetAllAsync();
