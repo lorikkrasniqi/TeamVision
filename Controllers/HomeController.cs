@@ -4,6 +4,10 @@ using VisionStore.Data;
 using VisionStore.Services.IServices;
 using VisionStore.Models;
 using Microsoft.EntityFrameworkCore;
+using VisionStore.Data.ViewModels;
+using System.Security.Claims;
+using VisionStore.Data.Cart;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VisionStore.Controllers
 {
@@ -12,18 +16,38 @@ namespace VisionStore.Controllers
         private readonly AppDbContext _context;
         private readonly IProductsService _service;
         private readonly ILogger<HomeController> _logger;
+        private readonly ShoppingCart _shoppingCart;
 
-        public HomeController(ILogger<HomeController> logger, IProductsService service, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, IProductsService service, AppDbContext context, ShoppingCart shoppingCart)
         {
             _service = service;
             _context = context;
             _logger = logger;
-        }
+            _shoppingCart = shoppingCart;
 
-        public async Task<IActionResult> Index()
+        }
+         public async Task<IActionResult> Index()
         {
-            var allProducts = await _context.Products.ToListAsync();
-            return View(allProducts);
+            
+            var items = _shoppingCart.GetShoppingCartItems();
+            _shoppingCart.ShoppingCartItems = items;
+
+
+            ShoppingCartVM productVm = new()
+            {
+                Products = await _context.Products.ToListAsync(),
+                ShoppingCart = _shoppingCart,
+                  ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal(),
+            };  
+
+
+           
+
+     
+
+
+            //var allProducts = await _context.Products.ToListAsync();
+            return View(productVm);
         }
 
         public IActionResult Privacy()
