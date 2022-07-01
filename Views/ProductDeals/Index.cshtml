@@ -1,0 +1,56 @@
+﻿@using VisionStore.Data.ViewModels;
+@model ShoppingCartVM;
+
+@{
+    ViewData["Title"] = "Product Deals Summary";
+}
+<html>
+
+<body>
+    <div class="admin-container row flex-column align-items-center justify-content-center">
+    <h3>Product Deals Summary</h3>
+     
+    <table class="table table-responsive row col-9" style="padding:100px;">
+          <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductDeals.ProductDealsItems)
+            {
+                
+                <tr>
+                    <td> <img src="~/img/@item.Products.ImageUrl" style="width:100px; height:100px" /></td>
+                    <td style='text-align:center; vertical-align:middle'>@item.Products.Title</td>
+                    <td style='text-align:center; vertical-align:middle'> @item.Price</td>
+
+                    <td style='text-align:center; vertical-align:middle'>
+                        <a class="text-danger" asp-controller="ProductDeals" asp-action="RemoveItemFromDeal" asp-route-id="@item.Products.ProductId">  
+                   <i class="bi bi-trash"></i>
+                        </a>                        
+                    </td> 
+                  
+
+                </tr>
+                
+            }
+
+        </tbody>
+
+    
+
+    </table>
+ 
+    </div>
+
+    </body>
+    </html>
+    
+    
+    
+    
+
