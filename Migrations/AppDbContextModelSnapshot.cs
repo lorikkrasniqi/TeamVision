@@ -310,6 +310,28 @@ namespace VisionStore.Migrations
                     b.ToTable("OrderedProducts");
                 });
 
+            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Property<int>("ProductId")
@@ -450,6 +472,17 @@ namespace VisionStore.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
+                {
+                    b.HasOne("VisionStore.Models.Products", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.HasOne("VisionStore.Models.Category", "Category")
@@ -485,6 +518,8 @@ namespace VisionStore.Migrations
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Navigation("OrderedProducts");
+
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

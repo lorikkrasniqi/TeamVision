@@ -8,7 +8,6 @@ namespace VisionStore.Models
     public class Products
     {
         [Key]
-        
         public int ProductId { get; set; }
         [Required(ErrorMessage ="You need to provide product's title")]
         public string Title { get; set; }
@@ -25,12 +24,23 @@ namespace VisionStore.Models
         [Display(Name = "Product Image")]
         [NotMapped]
         public IFormFile productImage { get; set; }
+
+
+        [Required(ErrorMessage = "Insert product images")]
+        [Display(Name = "Product Images")]
+        [NotMapped]
+        public IFormFile[] Images { get; set; }
+
         public ICollection<OrderedProducts> OrderedProducts { get; set; }
 
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+
+        [NotMapped]
+        public List<ProductImages> ProductImages { get; set; }
 
         internal static object AsNoTacking()
         {
