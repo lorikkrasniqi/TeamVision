@@ -321,15 +321,12 @@ namespace VisionStore.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("NewPrice")
                         .HasColumnType("float");
 
                     b.Property<string>("ProductDealsId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductsProductId")
                         .HasColumnType("int");

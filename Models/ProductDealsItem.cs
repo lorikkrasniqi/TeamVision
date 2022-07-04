@@ -14,15 +14,12 @@ namespace VisionStore.Models
         
         public Products Products { get; set; }
 
-        [ForeignKey("ProductId")]
-        [ValidateNever]
-        public int ProductId { get; set; }
-
+   
         public int Count { get; set; }
 
 
         [Required(ErrorMessage = "You need to provide product's Price")]
-        public double Price { get; set; }
+        public double NewPrice { get; set; }
 
         public int Quantity { get; set; }
 

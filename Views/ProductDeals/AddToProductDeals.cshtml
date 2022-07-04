@@ -1,22 +1,25 @@
 ﻿@model ProductDealsItem
 
 @{
-    ViewData["Title"] = "Add product deal";
+    ViewData["Title"] = "Add Product to Deal";
 }
 <div class="admin-container row justify-content-center mt-5 mb-5">
     <div class="col-md-4">
       <form enctype="multipart/form-data" asp-action="Index">
-            <h3>Add new price for this item</h3>
+            <h3>Add new price to this item</h3>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
+
+           
             <div class="row">
                 <div class="form-group col">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
+                    <label asp-for="NewPrice" class="control-label"></label>
+                    <input asp-for="NewPrice" class="form-control" />
+                    <span asp-validation-for="NewPrice" class="text-danger"></span>
                 </div>
-            
+               
             </div>
-           
+         
             <div class="form-group d-flex justify-content-between">
                 <input type="submit" value="Add" class="btn btn-primary col-5" />
             </div>

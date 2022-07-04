@@ -12,7 +12,7 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220629134032_productDeals")]
+    [Migration("20220701123426_productDeals")]
     partial class productDeals
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -323,15 +323,12 @@ namespace VisionStore.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("NewPrice")
                         .HasColumnType("float");
 
                     b.Property<string>("ProductDealsId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductsProductId")
                         .HasColumnType("int");
