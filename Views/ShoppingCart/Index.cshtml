@@ -1,4 +1,7 @@
-﻿@using VisionStore.Data.ViewModels;
+﻿@using PayPalHttp
+@using PayPalCheckoutSdk.Core
+@using PayPalCheckoutSdk
+@using VisionStore.Data.ViewModels;
 @model ShoppingCartVM;
 
 @{
@@ -12,62 +15,83 @@
      
     <table class="table table-responsive row col-9" style="padding:100px;">
           <thead>
+<h2>Your Shopping Cart Summary</h2>
+<table class="table table-responsive" style="padding:100px;">
+    <thead>
+        <tr>
+            <th>Product Image</th>
+            <th>Quantity</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+        {
             <tr>
-                <th>Product Image</th>
-                <th>Quantity</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
-            {
-                
-                <tr>
-                    <td> <img src="~/img/@item.Products.ImageUrl" style="width:100px; height:100px" /></td>
-                    <td style='text-align:center; vertical-align:middle'>@item.Quantity</td>
-                    <td style='text-align:center; vertical-align:middle'>@item.Products.Title</td>
-                    <td style='text-align:center; vertical-align:middle'> @item.Products.Price</td>
-                    <td style='text-align:center; vertical-align:middle'>@((item.Quantity*item.Products.Price).ToString("c")) </td>
+                <td> <img src="~/img/@item.Products.ImageUrl" style="width:100px; height:100px" /></td>
+                <td style='text-align:center; vertical-align:middle'>@item.Quantity</td>
+                <td style='text-align:center; vertical-align:middle'>@item.Products.Title</td>
+                <td style='text-align:center; vertical-align:middle'> @item.Products.Price</td>
+                <td style='text-align:center; vertical-align:middle'>@((item.Quantity*item.Products.Price).ToString("c")) </td>
 
-                    <td style='text-align:center; vertical-align:middle'>
-                         <a class="text-danger" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.Products.ProductId">
-                           <i class="bi bi-file-plus"></i>
-                        </a>
+                <td style='text-align:center; vertical-align:middle'>
+                    <a class="text-danger" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.Products.ProductId">
+                        <i class="bi bi-file-plus"></i>
+                    </a>
 
-                        <a class="text-danger" asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Products.ProductId">  
-                   <i class="bi bi-trash"></i>
-                        </a>                        
-                    </td> 
-                  
-
-                </tr>
-                
-            }
-
-        </tbody>
-
-        <tfoot>
-            <tr>
-                <td colspan="4"></td>
-                <td> Total: </td>
-                <td>
-                    @Model.ShoppingCartTotal.ToString("c")
+                    <a class="text-danger" asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Products.ProductId">
+                        <i class="bi bi-trash"></i>
+                    </a>
                 </td>
-
             </tr>
-        </tfoot>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td> Total: </td>
+            <td>
+                @Model.ShoppingCartTotal.ToString("c")
+            </td>
 
     </table>
  
     </div>
 
-    </body>
-    </html>
-    
-    
-    
-    
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <div class="btn-group">
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_xclick" />
 
+            <input type="hidden" name="business" value="test@xyz.com" />
+
+            @foreach(var item in Model.ShoppingCart.ShoppingCartItems)
+            {
+              <input type="hidden" name="item_name" value="@item.Products.Title" />    
+              <input type="hidden" name="item_number" value="@item.Products.ProductId" />
+            }
+            <input type="hidden" name="amount" value="@Html.Raw(Model.ShoppingCartTotal)" />
+            <input type="hidden" name="currency_code" value="USD" />
+
+            <input type="hidden" name="return" value="http://xslfop.com/order/complete" />
+            <input type="hidden" name="cancel_return" value="http://xslfop.com/order/cancel" />
+            <input type="hidden" name="notify_url" value="http://xslfop.com/order/ipn" />
+            <input type="hidden" name="no_note" value="1" />
+            
+            <input type="image" name="submit"
+                   src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif"
+                   alt="PayPal — The safer, easier way to pay online." />
+            <img src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
+                 width="1" height="1" alt="" />
+        </form>
+
+        <span style="padding:5px"></span>
+        <a class="btn btn-outline-success" asp-controller="Home" action="Index">Add more products</a>
+    </div>
+</div>
