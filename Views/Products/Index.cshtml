@@ -66,6 +66,8 @@
                     @Html.ActionLink("Edit", "Edit", new {  id=item.ProductId  }, new {  @class =  "btn btn-primary" }) 
                     @Html.ActionLink("Details", "Details", new {  id=item.ProductId  }, new {  @class =  "btn btn-secondary" }) 
                     @Html.ActionLink("Delete", "Delete", new { id=item.ProductId}, new {  @class =  "btn btn-danger" })
+                   <a  class="btn btn-secondary col-5" style="margin:5px" asp-controller="ProductDeals" asp-action="AddToProductDeals" asp-route-id="@item.ProductId">Add to Deals</a>
+                   <a  class="btn btn-secondary col-5"style="margin:5px"  asp-controller="ProductDeals" asp-action="Index">Go to Deals</a>
                 </td>
             </tr>
     }

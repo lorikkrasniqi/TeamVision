@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VisionStore.Data;
 
@@ -11,9 +12,10 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629134032_productDeals")]
+    partial class productDeals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,9 +313,6 @@ namespace VisionStore.Migrations
                 });
 
             modelBuilder.Entity("VisionStore.Models.ProductDealsItem", b =>
-
-            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -345,19 +344,6 @@ namespace VisionStore.Migrations
                     b.HasIndex("ProductsProductId");
 
                     b.ToTable("ProductDealsItem");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("VisionStore.Models.Products", b =>
@@ -509,15 +495,6 @@ namespace VisionStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Products");
-            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
-                {
-                    b.HasOne("VisionStore.Models.Products", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("VisionStore.Models.Products", b =>
@@ -555,8 +532,6 @@ namespace VisionStore.Migrations
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Navigation("OrderedProducts");
-
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }
