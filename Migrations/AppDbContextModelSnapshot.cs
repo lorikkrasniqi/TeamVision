@@ -311,9 +311,6 @@ namespace VisionStore.Migrations
                 });
 
             modelBuilder.Entity("VisionStore.Models.ProductDealsItem", b =>
-
-            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -324,15 +321,12 @@ namespace VisionStore.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("NewPrice")
                         .HasColumnType("float");
 
                     b.Property<string>("ProductDealsId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductsProductId")
                         .HasColumnType("int");
@@ -345,6 +339,15 @@ namespace VisionStore.Migrations
                     b.HasIndex("ProductsProductId");
 
                     b.ToTable("ProductDealsItem");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -509,10 +512,12 @@ namespace VisionStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Products");
+                });
+
             modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
                 {
                     b.HasOne("VisionStore.Models.Products", "Product")
-                        .WithMany("ProductImages")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -555,8 +560,6 @@ namespace VisionStore.Migrations
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Navigation("OrderedProducts");
-
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }
