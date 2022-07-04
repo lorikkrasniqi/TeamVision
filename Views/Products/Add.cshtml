@@ -1,5 +1,10 @@
 ﻿@model Products
 
+
+
+
+
+
 @{
     ViewData["Title"] = "Add product";
 }
@@ -36,10 +41,12 @@
                 </div>
             </div>
              <div class="form-group col">
-                    <label asp-for="productImage" class="control-label"></label>
-                    <input asp-for="productImage"  id="prdImg" class ="form-control" onchange="document.getElementById('productImg').src = window.URL.createObjectURL(this.files[0])"/>
-                    <span asp-validation-for="productImage" class="text-danger"></span>
-                    <img id="productImg" src="" alt="Product Image" width="150" height="150" style="border:1px;margin-top:20px;margin-left:20px;"/>
+                    <label asp-for="Images" class="control-label"></label>
+                    <input asp-for="Images"  id="prdImg" class ="form-control" onchange="Add(this)"/>
+                     <span asp-validation-for="productImage" class="text-danger"></span>
+                     <div id="img-elements">
+                        <img id="productImg" src="" alt="Product Image" width="150" height="150" style="border:1px;margin-top:20px;margin-left:20px;"/>
+                    </div>
                 </div>
             <div class="form-group d-flex justify-content-between">
                 <input type="submit" value="Add" class="btn btn-primary col-5" />
@@ -49,14 +56,43 @@
     </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script type="text/javascript">
- $(".custom-file-input").on("change", function () {
-     var fileName = $(productImage).val().split("\\").pop();
-     $(productImage).siblings(".custom-file-label").addClass("selected").html(fileName);
- });
-    
-</script>
+@section scripts{
+    <script type="text/javascript">
+        //Here is the custom javascript just for this view.
+        function insertAfter(newNode, existingNode) {
+            existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+        }
+
+        function removeAllChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+             }
+}
+
+        function Add(event)
+        {
+            var element = document.getElementById("img-elements");
+
+            removeAllChildNodes(element);
+
+            var array = event.files;
+
+            for(let i=0;i< array.length;i++)
+            {
+                x = array[i];
+
+                console.log(x.name)
+
+                var imgElement = document.createElement("img");
+                imgElement.setAttribute("alt", "Product Image");
+                imgElement.setAttribute("height", "150");
+                imgElement.setAttribute("width", "150");
+                imgElement.setAttribute("style", "border:1px;margin-top:20px;margin-left:20px;");
+                imgElement.setAttribute("src",window.URL.createObjectURL(x))
+
+                element.appendChild(imgElement)
+            }
+        }
+    </script>
 }
