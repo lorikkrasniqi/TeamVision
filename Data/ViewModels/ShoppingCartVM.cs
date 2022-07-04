@@ -7,6 +7,8 @@ namespace VisionStore.Data.ViewModels
     {
         public ShoppingCart ShoppingCart { get; set; }
 
+        public ProductDeals ProductDeals { get; set; }
+
         public IEnumerable<Products> Products { get; set; }
 
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }

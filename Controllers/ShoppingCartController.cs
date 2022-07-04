@@ -36,6 +36,7 @@ namespace VisionStore.Controllers
                 ShoppingCart = _shoppingCart,
                 ShoppingCartTotal = _shoppingCart.GetUserShoppingCartTotal(userId)
             };
+            
             return View(response);
         }
        

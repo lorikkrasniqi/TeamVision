@@ -29,6 +29,8 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sc => VisionStore.Data.Cart.ShoppingCart.GetShoppingCart(sc));
+builder.Services.AddScoped(sc => VisionStore.Data.Cart.ProductDeals.GetProduct(sc));
+
 
 builder.Services.AddSession();
  

@@ -208,25 +208,47 @@
     </div>
 </section>
 
-<hr />
 
-<section class="deal-of-week set-bg spad" >
-     <div class="container">
-             <img class="rounded float-right img-responsive" width="500" height="450" src="img/ip11.jpg" alt="" />
-        <div class="col-lg-6 text-center">
-            <div class="section-title">
+
+
+<section class="hero-section">
+    <div class="hero-items owl-carousel">
+
+         @foreach (var deal in Model.ProductDeals.ProductDealsItems)
+                                {
+        <div class="single-hero-items set-bg" >
+                         <img class="rounded float-right img-responsive" width="500" height="450" src="~/img/@deal.Products.ImageUrl" alt="" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="section-title">
                 <h2>Deal Of The Week</h2>
+
                 <p>
                    Vision Store's Deals of the Week are a selection of fresh deals updated every week: 
                    find cheap prices items in tech...
                     
                 </p>
                 <div class="product-price">
-                    $450.00
-                    <span>/ Iphone</span>
+                    @deal.Price
+                    <span>/ @deal.Products.Title</span>
                 </div>
             </div>
-            <div class="countdown-timer" id="countdown">
+
+                        <a href="#" class="primary-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Sale</h2>
+                </div>
+            </div>
+        </div>
+   }
+
+
+    </div>
+</section>
+ <div class="countdown-timer" id="countdown">
 
                 <div class="cd-item">
                     <span id="days"></span>
@@ -246,13 +268,8 @@
                 </div>
       
             </div>
-            <a href="#" class="primary-btn">Shop Now</a>
-             
-        </div>
-        
-    </div>
 
-</section>
+ 
 
 <hr />
 
@@ -557,7 +574,7 @@
 
 <script>
 
-var countDownDate = new Date("Jun 30, 2022 00:00:00").getTime();
+var countDownDate = new Date("Jul 30, 2022 00:00:00").getTime();
 
   var x = setInterval(function() {
 
@@ -572,7 +589,7 @@ var countDownDate = new Date("Jun 30, 2022 00:00:00").getTime();
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
 
-  document.getElementById("days").innerHTML = days ;
+  document.getElementById("days").innerHTML = days;
   document.getElementById("hours").innerHTML =  hours ;
   document.getElementById("minutes").innerHTML =  minutes;
   document.getElementById("seconds").innerHTML = seconds;
@@ -584,3 +601,4 @@ var countDownDate = new Date("Jun 30, 2022 00:00:00").getTime();
   }
 }, 1000);
    </script>
+   

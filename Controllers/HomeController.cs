@@ -17,14 +17,15 @@ namespace VisionStore.Controllers
         private readonly IProductsService _service;
         private readonly ILogger<HomeController> _logger;
         private readonly ShoppingCart _shoppingCart;
+        private readonly ProductDeals _productDeals;
 
-        public HomeController(ILogger<HomeController> logger, IProductsService service, AppDbContext context, ShoppingCart shoppingCart)
+        public HomeController(ILogger<HomeController> logger, IProductsService service, AppDbContext context, ShoppingCart shoppingCart,ProductDeals productDeals)
         {
             _service = service;
             _context = context;
             _logger = logger;
             _shoppingCart = shoppingCart;
-
+            _productDeals = productDeals;
         }
          public async Task<IActionResult> Index()
         {
@@ -32,12 +33,16 @@ namespace VisionStore.Controllers
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
 
+            var item = _productDeals.GetProductsDealsItems();
+            _productDeals.ProductDealsItems = item;
+
 
             ShoppingCartVM productVm = new()
             {
                 Products = await _context.Products.ToListAsync(),
                 ShoppingCart = _shoppingCart,
-                  ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal(),
+                ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal(),
+                ProductDeals = _productDeals,
             };  
 
 

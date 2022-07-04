@@ -1,0 +1,37 @@
+﻿@model ProductDealsItem
+
+@{
+    ViewData["Title"] = "Add product deal";
+}
+<div class="admin-container row justify-content-center mt-5 mb-5">
+    <div class="col-md-4">
+      <form enctype="multipart/form-data" asp-action="Index">
+            <h3>Add new price for this item</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            
+            </div>
+           
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" value="Add" class="btn btn-primary col-5" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+ $(".custom-file-input").on("change", function () {
+     var fileName = $(productImage).val().split("\\").pop();
+     $(productImage).siblings(".custom-file-label").addClass("selected").html(fileName);
+ });
+    
+</script>
+}
