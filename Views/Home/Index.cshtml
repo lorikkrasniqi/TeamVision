@@ -1,5 +1,5 @@
-﻿ @model IEnumerable<VisionStore.Models.Products>
-
+﻿@using VisionStore.Data.ViewModels;
+@model ShoppingCartVM;
 <section>
     <div class="container">
         <div class="inner-header">
@@ -23,13 +23,8 @@
                 </div>
 
                 <div class="col-lg-3 text-right col-md-3">
+               
                     <ul class="nav-right">
-                        <li class="heart-icon">
-                            <a href="#">
-                                <i class="icon_heart_alt"></i>
-                                <span>1</span>
-                            </a>
-                        </li>
                         <li class="cart-icon">
                             <a href="#">
                                 <i class="icon_bag_alt"></i>    
@@ -38,46 +33,39 @@
                                 <div class="select-items">
                                     <table>
                                         <tbody>
-                                             @foreach (var items in Model)
-            {
+                                         @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                                         {
                                             <tr>
-                                                <td class="si-pic"><img src="img/select-product-1.jpg" alt="" /></td>
+                                                <td class="si-pic"><img src="~/img/@item.Products.ImageUrl" width="100px" height="100px" alt="" /></td>
                                                 <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>@items.Description</p>
-                                                        <h6>Kabino Bedside Table</h6>
+                                                    <div class="product-selected">                                                      
+                                                        <p>@item.Products.Title </p>    
+                                                         <h6>Quantity: @item.Quantity</h6>
+                                                         <p> Price:@item.Products.Price $</p>                                                       
                                                     </div>
                                                 </td>
                                                 <td class="si-close">
+                                                    <a class="text-danger" asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Products.ProductId">  
                                                     <i class="ti-close"></i>
+                                                    </a>     
                                                 </td>
-                                            </tr>}
-                                            <tr>
-                                                <td class="si-pic"><img src="img/select-product-2.jpg" alt="" /></td>
-                                                <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>$60.00 x 1</p>
-                                                        <h6>Kabino Bedside Table</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
-                                                </td>
-                                            </tr>
+                                            </tr> 
+                                           }
                                         </tbody>
                                     </table>
                                 </div>
+                            
                                 <div class="select-total">
                                     <span>total:</span>
-                                    <h5>$120.00</h5>
+                                    <h5>@Model.ShoppingCartTotal.ToString("c")</h5>
                                 </div>
+              
                                 <div class="select-button">
-                                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                    <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                    <a asp-controller="ShoppingCart" asp-action="Index" class="primary-btn view-card">VIEW CARD</a>
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">$150.00</li>
+                        <li class="cart-price">@Model.ShoppingCartTotal.ToString("c")</li>
                     </ul>
                 </div>
             </div>
@@ -189,7 +177,7 @@
 
 
                 <div class="product-slider owl-carousel">
-                       @foreach (var item in Model) {
+                       @foreach (var item in Model.Products) {
                     <div class="product-item">
                         <div class="pi-pic">
                              <img src="~/img/@item.ImageUrl"/>
@@ -199,7 +187,7 @@
                             </div>
                             <ul>
                                 <li class="w-icon active"><a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@item.ProductId"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view">   @Html.ActionLink("+ Quick View", "Details", "Products", new {  id=item.ProductId  })  </li>
+                                <li class="quick-view">   @Html.ActionLink("+ Quick View", "ProductDetails", "Products", new {  id=item.ProductId  })  </li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
                         </div>
@@ -220,47 +208,53 @@
     </div>
 </section>
 
+<hr />
 
-
-<section class="deal-of-week set-bg spad" data-setbg="img/time-bg.jpg">
-    <div class="container">
+<section class="deal-of-week set-bg spad" >
+     <div class="container">
+             <img class="rounded float-right img-responsive" width="500" height="450" src="img/ip11.jpg" alt="" />
         <div class="col-lg-6 text-center">
             <div class="section-title">
                 <h2>Deal Of The Week</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
-                    consectetur adipisicing elit
+                   Vision Store's Deals of the Week are a selection of fresh deals updated every week: 
+                   find cheap prices items in tech...
+                    
                 </p>
                 <div class="product-price">
-                    $35.00
-                    <span>/ HanBag</span>
+                    $450.00
+                    <span>/ Iphone</span>
                 </div>
             </div>
             <div class="countdown-timer" id="countdown">
+
                 <div class="cd-item">
-                    <span>56</span>
+                    <span id="days"></span>
                     <p>Days</p>
                 </div>
                 <div class="cd-item">
-                    <span>12</span>
+                    <span id="hours"></span>
                     <p>Hrs</p>
                 </div>
                 <div class="cd-item">
-                    <span>40</span>
+                    <span  id="minutes"></span>
                     <p>Mins</p>
                 </div>
                 <div class="cd-item">
-                    <span>52</span>
+                    <span id="seconds"></span>
                     <p>Secs</p>
                 </div>
+      
             </div>
             <a href="#" class="primary-btn">Shop Now</a>
+             
         </div>
+        
     </div>
+
 </section>
 
-
-
+<hr />
 
  <section class="man-banner spad">
     <div class="container-fluid">
@@ -559,3 +553,34 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+var countDownDate = new Date("Jun 30, 2022 00:00:00").getTime();
+
+  var x = setInterval(function() {
+
+  var now = new Date().getTime();
+    
+  var distance = countDownDate - now;
+    
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+
+  document.getElementById("days").innerHTML = days ;
+  document.getElementById("hours").innerHTML =  hours ;
+  document.getElementById("minutes").innerHTML =  minutes;
+  document.getElementById("seconds").innerHTML = seconds;
+    
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+   </script>

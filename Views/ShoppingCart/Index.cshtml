@@ -7,6 +7,14 @@
 @{
     ViewData["Title"] = "Shopping Cart Summary";
 }
+<html>
+
+<body>
+    <div class="admin-container row flex-column align-items-center justify-content-center">
+    <h3>Shopping Cart Summary</h3>
+     
+    <table class="table table-responsive row col-9" style="padding:100px;">
+          <thead>
 <h2>Your Shopping Cart Summary</h2>
 <table class="table table-responsive" style="padding:100px;">
     <thead>
@@ -48,6 +56,10 @@
             <td>
                 @Model.ShoppingCartTotal.ToString("c")
             </td>
+
+    </table>
+ 
+    </div>
 
         </tr>
     </tfoot>

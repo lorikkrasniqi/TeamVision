@@ -1,0 +1,62 @@
+﻿@model VisionStore.Models.Products
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br />
+<br />
+<br />
+@using (@Html.BeginForm())
+{
+    
+
+
+<div class="admin-container row flex-column align-items-center justify-content-center">
+    <h3>Details of product</h3>
+  
+      <dl class="row col-9">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+             <img src="~/img/@Model.ImageUrl" style="width:450px; height:350px;"/>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+        <br />
+        <br />
+        <br />
+        <dd class = "col-sm-10">
+          <strong>Product:</strong>   @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dd class = "col-sm-10">
+          <strong>Description:</strong>    @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dd class = "col-sm-10">
+        <strong>Price:</strong>   @Html.DisplayFor(model => model.Price) $
+        </dd>
+        <dd class = "col-sm-10">
+        <strong>Quantity:</strong>  @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+   
+            <div class="bottom col-10 align-self-end row justify-content-end">
+      <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@Model.ProductId">Add To Cart</a>
+     </div>
+    </dl>
+           
+        </div>
+
+     
+
+    
+ 
+ 
+
+}
+
+
+
+ 
