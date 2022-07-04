@@ -12,8 +12,8 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220616090058_ShoppingCart")]
-    partial class ShoppingCart
+    [Migration("20220701232324_AddProductImages")]
+    partial class AddProductImages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -312,6 +312,28 @@ namespace VisionStore.Migrations
                     b.ToTable("OrderedProducts");
                 });
 
+            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("VisionStore.Models.Products", b =>
                 {
                     b.Property<int>("ProductId")
@@ -355,6 +377,16 @@ namespace VisionStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductsProductId")
                         .HasColumnType("int");
 
@@ -369,7 +401,7 @@ namespace VisionStore.Migrations
 
                     b.HasIndex("ProductsProductId");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.ToTable("ShoppingCartItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -440,6 +472,17 @@ namespace VisionStore.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("VisionStore.Models.ProductImages", b =>
+                {
+                    b.HasOne("VisionStore.Models.Products", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("VisionStore.Models.Products", b =>

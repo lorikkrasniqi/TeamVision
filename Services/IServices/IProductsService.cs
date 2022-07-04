@@ -9,6 +9,6 @@ namespace VisionStore.Services.IServices
         Task AddAsync(Products product);
         Task<Products> UpdateAsync(int id,Products product);
         Task DeleteAsync(int id);
-
+        List<ProductImages> GetProductImages(int productId);
     }
 }
