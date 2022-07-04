@@ -12,8 +12,8 @@ using VisionStore.Data;
 namespace VisionStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220621200150_init")]
-    partial class init
+    [Migration("20220701231209_temp")]
+    partial class temp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

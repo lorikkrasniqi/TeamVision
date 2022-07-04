@@ -24,12 +24,14 @@ namespace VisionStore.Services
 
         public async Task AddAsync(Products product)
         {
-            string uniqueFileName = UploadedFile(product);
-            product.ImageUrl = uniqueFileName;
             _context.Attach(product);
             _context.Entry(product).State = EntityState.Added;
-             await _context.Products.AddAsync(product);
-             await _context.SaveChangesAsync();
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+            string uniqueFileName = UploadedFile(product);
+            product.ImageUrl = uniqueFileName;
+            _context.SaveChanges();
+            
         }
 
         public async Task DeleteAsync(int id)
@@ -54,19 +56,42 @@ namespace VisionStore.Services
         [HttpPost]
         private string UploadedFile(Products product)
         {
-            string uniqueFileName = null;
-            if (product.productImage != null)
+            var imageToShow = string.Empty;
+            if (product.Images != null)
             {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "img");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + product.productImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                foreach(var image in product.Images)
                 {
-                    product.productImage.CopyTo(fileStream);
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "img");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        image.CopyTo(fileStream);
+                    }
+                    
+                    imageToShow = uniqueFileName;
+                    var productImage = new ProductImages()
+                    {
+                        ProductId = product.ProductId,
+                        Url = uniqueFileName
+                    };
+
+                    AddProductImage(productImage);
                 }
             }
-            return uniqueFileName;
+
+            return imageToShow;
         }
 
+        public void AddProductImage(ProductImages image)
+        {
+            _context.ProductImages.Add(image);
+            _context.SaveChanges();
+        }
+
+        public List<ProductImages> GetProductImages(int productId)
+        {
+            return _context.ProductImages.Where(x => x.ProductId == productId).ToList();
+        }
     }
 }
