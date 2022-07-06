@@ -34,7 +34,7 @@ namespace VisionStore.Data.Cart
 
         public void AddItemToDeal(Products products)
         {
-            var productDealItem = _context.ProductDealsItem.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ProductDealsId == ProductDealsId && n.Products.Price == );
+            var productDealItem = _context.ProductDealsItem.FirstOrDefault(n => n.Products.ProductId == products.ProductId && n.ProductDealsId == ProductDealsId);
 
             if (productDealItem == null)
             {
@@ -42,7 +42,7 @@ namespace VisionStore.Data.Cart
                 {
                     ProductDealsId = ProductDealsId,
                     Products = products,
-                
+                    NewPrice = products.Price,                
                 };
                 _context.ProductDealsItem.Add(productDealItem);
             }
