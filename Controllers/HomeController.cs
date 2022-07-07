@@ -39,11 +39,14 @@ namespace VisionStore.Controllers
 
             ShoppingCartVM productVm = new()
             {
-                Products = await _context.Products.ToListAsync(),
+                Products = _context.Products.Where(products  => products.CategoryId == 1),
+                Product = _context.Products.Where(products => products.CategoryId == 2),
                 ShoppingCart = _shoppingCart,
                 ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal(),
                 ProductDeals = _productDeals,
-            };  
+            };
+
+            ViewBag.products = _context.Products.Where(products => products.CategoryId == 2);
 
 
            
