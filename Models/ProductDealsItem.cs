@@ -14,7 +14,6 @@ namespace VisionStore.Models
 
         public Products Products { get; set; }
 
-
         public int Count { get; set; }
 
 

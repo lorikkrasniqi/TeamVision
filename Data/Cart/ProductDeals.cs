@@ -42,7 +42,7 @@ namespace VisionStore.Data.Cart
                 {
                     ProductDealsId = ProductDealsId,
                     Products = products,
-                
+                    NewPrice = products.Price,                
                 };
                 _context.ProductDealsItem.Add(productDealItem);
             }

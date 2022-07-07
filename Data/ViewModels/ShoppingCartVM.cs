@@ -11,6 +11,10 @@ namespace VisionStore.Data.ViewModels
 
         public IEnumerable<Products> Products { get; set; }
 
+        public IEnumerable<Products> Product { get; set; }
+
+
+
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         public double ShoppingCartTotal { get; set; }

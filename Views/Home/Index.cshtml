@@ -128,18 +128,16 @@
             </div>
             <div class="col-lg-4">
                 <div class="single-banner">
-                    <img src="img/watches.jpg" alt="" />
+                    <img src="img/laptops1.jpg" alt="" />
                     <div class="inner-text">
-                        <h4>Watches</h4>
+                        <h4>Laptops</h4>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-banner">
-                    <img src="img/banner-3.jpg" alt="" />
-                    <div class="inner-text">
-                        <h4>Kid’s</h4>
-                    </div>
+                    <img src="img/deals.jpg" alt="" />
+                   
                 </div>
             </div>
         </div>
@@ -160,26 +158,25 @@
     <div class="container-fluid">
         <div class="row">
               <div class="col-lg-3">
-                <div class="product-large set-bg m-large" data-setbg="img/apple.jpg">
-                    <h2>Iphones</h2>
+                <div class="product-large set-bg m-large" data-setbg="img/laptops.jpg">
+                    <h2>Laptops</h2>
                     <a href="#">Discover More</a>
                 </div>
             </div>
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                       <li class="active">Iphone</li>
-                        <li>Samsung</li>
-                        <li>Huawei</li>
-                        <li>Nokia</li>
+                       <li class="active">Laptops</li>
+                     
                     </ul>
                 </div>
 
 
                 <div class="product-slider owl-carousel">
-                       @foreach (var item in Model.Products) {
+                       @foreach (var item in Model.Product) {
                     <div class="product-item">
-                        <div class="pi-pic">
+                        <div class="pi-pic"> 
+                           
                              <img src="~/img/@item.ImageUrl"/>
                             <div class="sale">Sale</div>
                             <div class="icon">
@@ -211,10 +208,12 @@
 
 
 <section class="hero-section">
-    <div class="hero-items owl-carousel">
-
-         @foreach (var deal in Model.ProductDeals.ProductDealsItems)
+       <div class="hero-items owl-carousel">
+    @foreach (var deal in Model.ProductDeals.ProductDealsItems)
                                 {
+  
+
+          
         <div class="single-hero-items set-bg" >
                          <img class="rounded float-right img-responsive" width="500" height="450" src="~/img/@deal.Products.ImageUrl" alt="" />
             <div class="container">
@@ -240,13 +239,16 @@
                 <div class="off-card">
                     <h2>Sale</h2>
                 </div>
+
             </div>
-        </div>
-   }
+        </div>}
+    
 
 
-    </div>
-</section>
+         </div>
+    
+    @foreach (var count in Model.ProductDeals.ProductDealsItems)
+                                {
  <div class="countdown-timer" id="countdown">
 
                 <div class="cd-item">
@@ -267,6 +269,9 @@
                 </div>
       
             </div>
+            }
+</section>
+
 
  
 
@@ -281,108 +286,44 @@
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
-                        <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li class="active">Phones</li>
+                      
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
+                      @foreach (var items in Model.Products) {
+                          
+                        <div class="product-item">
                         <div class="pi-pic">
-                            <img src="img/man-1.jpg" alt="" />
+                            <img src="~/img/@items.ImageUrl"/>
                             <div class="sale">Sale</div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon active"><a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@items.ProductId"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view">   @Html.ActionLink("+ Quick View", "ProductDetails", "Products", new {  id=items.ProductId  })  </li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
                         </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
+                       <div class="pi-text">
+                            <div class="catagory-name">Quantity:@Html.DisplayFor(modelItem => items.Quantity)</div>
                             <a href="#">
-                                <h5>Pure Pineapple</h5>
+                                <h5>@Html.DisplayFor(modelItem => items.Title)</h5>
                             </a>
                             <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
+                               @Html.DisplayFor(modelItem => items.Price) $
                             </div>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/man-2.jpg" alt="" />
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/man-3.jpg" alt="" />
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/man-4.jpg" alt="" />
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+                    }
+                 
+                  
                 </div>
             </div>
             <div class="col-lg-3 offset-lg-1">
-                <div class="product-large set-bg m-large" data-setbg="img/man-large.jpg">
-                    <h2>Men’s</h2>
+                <div class="product-large set-bg m-large" data-setbg="img/apple.jpg">
+                    <h2>Phones</h2>
                     <a href="#">Discover More</a>
                 </div>
             </div>
@@ -430,78 +371,7 @@
 </div>
 <section class="latest-blog spad">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>From The Blog</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/latest-1.jpg" alt="" />
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2021
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>The Best Street Style From London Fashion Week</h4>
-                        </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/latest-2.jpg" alt="" />
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2021
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>Vogue's Ultimate Guide To Autumn/Winter 2021 Shoes</h4>
-                        </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/latest-3.jpg" alt="" />
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2021
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
-                        </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <div class="benefit-items">
             <div class="row">
                 <div class="col-lg-4">
@@ -511,7 +381,7 @@
                         </div>
                         <div class="sb-text">
                             <h6>Free Shipping</h6>
-                            <p>For all order over 99<pre wp-pre-tag-1=""></pre>lt;/p>
+                            <p>For all order over 99<pre wp-pre-tag-1=""></pre></p>
                         </div>
                     </div>
                 </div>
@@ -522,7 +392,7 @@
                         </div>
                         <div class="sb-text">
                             <h6>Delivery On Time</h6>
-                            <p>If good have prolems</p>
+                            <p>If good have problems</p>
                         </div>
                     </div>
                 </div>
@@ -546,27 +416,27 @@
         <div class="logo-carousel owl-carousel">
             <div class="logo-item">
                 <div class="tablecell-inner">
-                    <img src="img/logo-1.png" alt="" />
+                    <img width="200px" height="80px" src="img/nokia.png" alt="" />
                 </div>
             </div>
             <div class="logo-item">
                 <div class="tablecell-inner">
-                    <img src="img/logo-2.png" alt="" />
+                    <img width="200px" height="60px" src="img/iphone.png" alt="" />
                 </div>
             </div>
             <div class="logo-item">
                 <div class="tablecell-inner">
-                    <img src="img/logo-3.png" alt="" />
+                    <img width="200px" height="80px"  src="img/dell.png" alt="" />
+                </div>
+            </div>
+             <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img width="200px" height="80px"  src="img/asus.png" alt="" />
                 </div>
             </div>
             <div class="logo-item">
                 <div class="tablecell-inner">
-                    <img src="img/logo-4.png" alt="" />
-                </div>
-            </div>
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="img/logo-5.png" alt="" />
+                    <img width="200px" height="80px" src="img/samsung.png" alt="" />
                 </div>
             </div>
         </div>
