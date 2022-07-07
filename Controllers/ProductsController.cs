@@ -75,8 +75,10 @@ namespace VisionStore.Controllers
         public async Task<IActionResult> ProductDetails(int id)
         {
             var product = await _service.GetByIdAsync(id);
+
             if (product == null)
             { return View("NotFound"); }
+            product.ProductImages = _service.GetProductImages(product.ProductId);
 
             return View(product);
         }
