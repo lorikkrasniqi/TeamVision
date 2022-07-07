@@ -41,6 +41,7 @@ namespace VisionStore.Data
         public DbSet<ProductDealsItem> ProductDealsItem { get; set; }
         public DbSet<OrderedProducts> OrderedProducts { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
+        public DbSet<ProductImages> ProductImages { get; set; }
     
     }
 }

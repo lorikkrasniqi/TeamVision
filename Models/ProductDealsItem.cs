@@ -11,10 +11,9 @@ namespace VisionStore.Models
         [Key]
         public int Id { get; set; }
 
-        
+
         public Products Products { get; set; }
 
-   
         public int Count { get; set; }
 
 
@@ -24,6 +23,7 @@ namespace VisionStore.Models
         public int Quantity { get; set; }
 
         public string ProductDealsId { get; set; }
+
 
 
     }

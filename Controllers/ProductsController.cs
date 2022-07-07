@@ -49,7 +49,7 @@ namespace VisionStore.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity", "productImage")]Products product)
+        public async Task<IActionResult> Add([Bind("CategoryId","Title","Description","Price","Quantity", "productImage", "Images")]Products product)
         {
             //if(!ModelState.IsValid)
             //{
@@ -62,8 +62,12 @@ namespace VisionStore.Controllers
         public async Task <IActionResult> Details(int id)
         {
             var product = await _service.GetByIdAsync(id);
+
             if (product == null)
             { return View("NotFound"); }
+
+
+            product.ProductImages = _service.GetProductImages(product.ProductId);
 
             return View(product);
         }
@@ -71,8 +75,10 @@ namespace VisionStore.Controllers
         public async Task<IActionResult> ProductDetails(int id)
         {
             var product = await _service.GetByIdAsync(id);
+
             if (product == null)
             { return View("NotFound"); }
+            product.ProductImages = _service.GetProductImages(product.ProductId);
 
             return View(product);
         }
